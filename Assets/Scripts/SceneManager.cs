@@ -4,6 +4,8 @@ using UnityEngine;
 public class SceneController : MonoBehaviour
 {
     [HideInInspector] public static SceneController Instance;
+
+    public PhotonView photonView;
     private GameObject sceneContainer;
 
     public GameObject levelStart;
@@ -11,19 +13,17 @@ public class SceneController : MonoBehaviour
     public GameObject levelEnd;
     private ObstacleData levelEndData;
 
+    public int levelLength;
+
     public List<ObstacleData> obstacleGroupsList;
 
     public GameObject Character;
 
     private Vector2 obstacleSpawnPosition;
 
-    void Awake(){
-        if (Instance == null){
-            Instance = this;
-            DontDestroyOnLoad(gameObject);
-        }else{
-            Destroy(gameObject);
-        }
+    void Awake()
+    {
+
 
         sceneContainer = GameObject.FindWithTag("SceneContainer");
 
@@ -31,34 +31,44 @@ public class SceneController : MonoBehaviour
         levelEndData = levelEnd.GetComponent<ObstacleData>();
     }
 
-    void Start(){
+    void Start()
+    {
         GenerateLevel();
-        SpawnPlayer();
     }
 
-    public void SpawnPlayer(){
 
-    }
+    public void GenerateLevel()
+    {
 
-    public void GenerateLevel(){
-        int levelLength = Random.Range(5, 7);
-        
         Vector2 currentBeginning = levelStartData.end.transform.position;
 
-        for(int i=0; i<levelLength; i++){
+        for (int i = 0; i < levelLength; i++)
+        {
 
             int newObstacleIndex = Random.Range(0, obstacleGroupsList.Count);
-            //currentbeginning is world position, to it you add negative of local offset of beginning of next item
-            obstacleSpawnPosition = currentBeginning + obstacleGroupsList[newObstacleIndex].beginning.transform.position * new Vector2(-1,-1);
-            //obstacleSpawnPosition = currentBeginning; le prob c'est que j'utilise les valeurs de l'objet précédentavec l'id du nouveau
-            GameObject newObject = Instantiate<GameObject>(obstacleGroupsList[newObstacleIndex].gameObject, obstacleSpawnPosition, Quaternion.identity,sceneContainer.transform);
-            //currentBeginning = obstacleGroupsList[newObstacleIndex].end;
+
+            obstacleSpawnPosition = currentBeginning + obstacleGroupsList[newObstacleIndex].beginning.transform.position * new Vector2(-1, -1);
+
+            PhotonNetwork.Instantiate(obstacleGroupsList[newObstacleIndex].name, obstacleSpawnPosition, Quaternion.identity, 0);
+
             currentBeginning = new Vector2(
-                newObject.transform.position.x + obstacleGroupsList[newObstacleIndex].end.transform.position.x,
-                newObject.transform.position.y + obstacleGroupsList[newObstacleIndex].end.transform.position.y
+                obstacleSpawnPosition.x + obstacleGroupsList[newObstacleIndex].end.transform.position.x,
+                obstacleSpawnPosition.y + obstacleGroupsList[newObstacleIndex].end.transform.position.y
             );
         }
-        obstacleSpawnPosition = currentBeginning + levelEndData.beginning.transform.position * new Vector2(-1,-1);
-        Instantiate<GameObject>(levelEnd, obstacleSpawnPosition, Quaternion.identity,sceneContainer.transform);
+        obstacleSpawnPosition = currentBeginning + levelEndData.beginning.transform.position * new Vector2(-1, -1);
+        PhotonNetwork.Instantiate(levelEnd.name, obstacleSpawnPosition, Quaternion.identity, 0);
+
+
+        //photonView.RPC("InstantiatePart", PhotonTargets.AllBuffered, obstacleSpawnPosition);
+    }
+
+
+
+    [PunRPC]
+    private void InstantiatePart(Vector2 obstacleSpawnPosition)
+    {
+        Instantiate<GameObject>(levelEnd, obstacleSpawnPosition, Quaternion.identity, sceneContainer.transform);
+
     }
 }

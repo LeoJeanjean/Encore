@@ -50,4 +50,17 @@ MonoBehaviour:
   - UpdateText
   - StartGame
   - Destroy
+  - Gravite
+  - slipperyShoes
+  - Anim
+  - Flip
+  - Jump
+  - SlowDown
+  - ChangeForce
+  - changeVelocity
+  - Accelerate
+  - Ralenti
+  - GenerateLevel
+  - InstantiatePart
+  - InstantiateEnd
   DisableAutoOpenWizard: 1

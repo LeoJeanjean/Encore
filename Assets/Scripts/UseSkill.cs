@@ -15,11 +15,17 @@ public class UseSkill : MonoBehaviour
     bool isCoolDown = false;
     public string skill;
 
+
+
     private void Start()
     {
         abilityImage.fillAmount = 1;
 
         buton.onClick.AddListener(click);
+
+
+        int randomIndex = Random.Range(0, gameManager.abilitySkills.Count);
+        // skill = gameManager.abilitySkills[randomIndex];
     }
 
     private void click()
@@ -30,11 +36,29 @@ public class UseSkill : MonoBehaviour
             isCoolDown = true;
 
 
-            if (skill == "anvil")
+            /*
+              { "enclume", "gravite", "rideaux", "pouete", "blague", "chaussuresGlissantes",
+                        "accelerations", "ralentissement", "picInvisible", "inversionCommandes", "terrainFolie", 
+                        //"sansDessusDessous" ,
+                        "seisme", "chaussuresCollantes", "pointColle", "pointGlace", "banana"
+                        };
+            */
+
+            if (skill == "enclume")
             {
                 var mousePos = Input.mousePosition;
                 gameManager.usingAbility = true;
                 gameManager.SpawnAnvil(mousePos);
+            }
+            else if (skill == "gravite")
+            {
+                gameManager.StartGlobalCoolDown();
+                gameManager.ManageSkill(skill);
+            }
+            else if (skill == "chaussuresGlissantes")
+            {
+                gameManager.StartGlobalCoolDown();
+                gameManager.ManageSkill(skill);
             }
         }
     }

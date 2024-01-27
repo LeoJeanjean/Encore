@@ -6,6 +6,9 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
+
+    public PhotonView photonView;
+
     public GameObject RunnerPrefab;
     public GameObject ShooterCanvas;
 
@@ -15,7 +18,7 @@ public class GameManager : MonoBehaviour
 
     public GameObject anvilPrefab;
 
-    public int target = 45;
+    public int target = 30;
 
     public float abilityCoolDownLenght = 1.5f;
 
@@ -25,6 +28,16 @@ public class GameManager : MonoBehaviour
 
     public bool usingAbility = false;
 
+    public List<string> abilitySkills = new List<string>
+            { "enclume", "gravite", "rideaux", "pouete", "blague", 
+            //"chaussuresGlissantes",
+            "accelerations", "ralentissement", "picInvisible", "inversionCommandes", "terrainFolie", 
+            //"sansDessusDessous" ,
+            "seisme", "chaussuresCollantes", "pointColle", "pointGlace", "banana"
+            };
+
+
+    private Player player;
 
     private void Update()
     {
@@ -80,7 +93,9 @@ public class GameManager : MonoBehaviour
 
         float randomValue = Random.RandomRange(-1f, 1f);
 
-        PhotonNetwork.Instantiate(RunnerPrefab.name, new Vector2(this.transform.position.x * randomValue, this.transform.position.y), Quaternion.identity, 0);
+        var playerGameObject = PhotonNetwork.Instantiate(RunnerPrefab.name, new Vector2(this.transform.position.x * randomValue, this.transform.position.y), Quaternion.identity, 0);
+
+        player = playerGameObject.GetComponent<Player>();
         GameCanvas.SetActive(false);
         SceneCamera.SetActive(false);
     }
@@ -89,6 +104,77 @@ public class GameManager : MonoBehaviour
     public void SpawnAnvil(Vector3 mousePos)
     {
         PhotonNetwork.Instantiate(anvilPrefab.name, mousePos, Quaternion.identity, 0);
+    }
+
+    public void ManageSkill(string skill)
+    {
+        if (skill == "gravite")
+        {
+            StartGlobalCoolDown();
+            photonView.RPC("Gravite", PhotonTargets.AllBuffered);
+        }
+        if (skill == "acceleration")
+        {
+            StartGlobalCoolDown();
+            photonView.RPC("Acceleration", PhotonTargets.AllBuffered);
+        }
+
+    }
+
+    [PunRPC]
+    public void Gravite()
+    {
+        if (!player)
+        {
+            return;
+        }
+        player.rb.gravityScale *= 10;
+
+        StartCoroutine(ResetGravityScale());
+    }
+
+    private IEnumerator ResetGravityScale()
+    {
+        yield return new WaitForSeconds(4.0f);
+        player.rb.gravityScale /= 10;
+    }
+
+
+
+    [PunRPC]
+    public void Accelerate()
+    {
+        if (!player)
+        {
+            return;
+        }
+        player.moveSpeed *= 4;
+
+        StartCoroutine(ResetAccelerate());
+    }
+
+    private IEnumerator ResetAccelerate()
+    {
+        yield return new WaitForSeconds(4.0f);
+        player.moveSpeed /= 4;
+    }
+
+    [PunRPC]
+    public void Ralenti()
+    {
+        if (!player)
+        {
+            return;
+        }
+        player.moveSpeed /= 4;
+
+        StartCoroutine(ResetRalenti());
+    }
+
+    private IEnumerator ResetRalenti()
+    {
+        yield return new WaitForSeconds(4.0f);
+        player.moveSpeed *= 4;
     }
 
 

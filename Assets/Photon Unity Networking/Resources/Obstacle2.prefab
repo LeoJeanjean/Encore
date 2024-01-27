@@ -4381,6 +4381,7 @@ GameObject:
   - component: {fileID: 2676764778714535694}
   - component: {fileID: 6079002354603181175}
   - component: {fileID: 7184333795831196469}
+  - component: {fileID: 5821732045282044825}
   m_Layer: 0
   m_Name: Obstacle2
   m_TagString: Untagged
@@ -4474,6 +4475,32 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 32.931446, y: 12.24665}
   m_EdgeRadius: 0
+--- !u!114 &5821732045282044825
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7033630343142170156}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ownerId: 0
+  group: 0
+  OwnerShipWasTransfered: 0
+  prefixBackup: -1
+  synchronization: 0
+  onSerializeTransformOption: 3
+  onSerializeRigidBodyOption: 2
+  ownershipTransfer: 0
+  ObservedComponents: []
+  ObservedComponentsFoldoutOpen: 1
+  viewIdField: 0
+  instantiationId: -1
+  currentMasterID: -1
+  isRuntimeInstantiated: 0
 --- !u!1 &7204936764703064752
 GameObject:
   m_ObjectHideFlags: 0
