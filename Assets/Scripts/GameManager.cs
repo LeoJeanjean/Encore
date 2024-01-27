@@ -29,7 +29,8 @@ public class GameManager : MonoBehaviour
     public bool usingAbility = false;
 
     public List<string> abilitySkills = new List<string>
-            { "enclume", "gravite", "rideaux", "pouete", "blague", "chaussuresGlissantes",
+            { "enclume", "gravite", "rideaux", "pouete", "blague", 
+            //"chaussuresGlissantes",
             "accelerations", "ralentissement", "picInvisible", "inversionCommandes", "terrainFolie", 
             //"sansDessusDessous" ,
             "seisme", "chaussuresCollantes", "pointColle", "pointGlace", "banana"
@@ -112,11 +113,12 @@ public class GameManager : MonoBehaviour
             StartGlobalCoolDown();
             photonView.RPC("Gravite", PhotonTargets.AllBuffered);
         }
-        if (skill == "chaussuresGlissantes")
+        if (skill == "acceleration")
         {
             StartGlobalCoolDown();
-            ManageSkill(skill);
+            photonView.RPC("Acceleration", PhotonTargets.AllBuffered);
         }
+
     }
 
     [PunRPC]
@@ -133,44 +135,47 @@ public class GameManager : MonoBehaviour
 
     private IEnumerator ResetGravityScale()
     {
-        yield return new WaitForSeconds(2.0f);
+        yield return new WaitForSeconds(4.0f);
         player.rb.gravityScale /= 10;
     }
 
 
+
     [PunRPC]
-    public void slipperyShoes()
+    public void Accelerate()
     {
         if (!player)
         {
             return;
         }
-        var collider = player.GetComponent<BoxCollider2D>();
+        player.moveSpeed *= 4;
 
-
-        StartCoroutine(ResetSlipperyShoes());
-
-        ChangeColliderFriction(collider, 5f);
+        StartCoroutine(ResetAccelerate());
     }
 
-    private void ChangeColliderFriction(BoxCollider2D collider, float frictionValue)
+    private IEnumerator ResetAccelerate()
     {
-        PhysicsMaterial2D newMaterial = new PhysicsMaterial2D
+        yield return new WaitForSeconds(4.0f);
+        player.moveSpeed /= 4;
+    }
+
+    [PunRPC]
+    public void Ralenti()
+    {
+        if (!player)
         {
-            friction = frictionValue
-        };
+            return;
+        }
+        player.moveSpeed /= 4;
 
-        collider.sharedMaterial = newMaterial;
+        StartCoroutine(ResetRalenti());
     }
 
-    private IEnumerator ResetSlipperyShoes()
+    private IEnumerator ResetRalenti()
     {
-        var collider = player.GetComponent<BoxCollider2D>();
-        yield return new WaitForSeconds(2.0f);
-        ChangeColliderFriction(collider, 0.4f);
+        yield return new WaitForSeconds(4.0f);
+        player.moveSpeed *= 4;
     }
-
-
 
 
 }

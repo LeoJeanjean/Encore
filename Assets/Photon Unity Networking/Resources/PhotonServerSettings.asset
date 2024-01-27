@@ -58,4 +58,9 @@ MonoBehaviour:
   - SlowDown
   - ChangeForce
   - changeVelocity
+  - Accelerate
+  - Ralenti
+  - GenerateLevel
+  - InstantiatePart
+  - InstantiateEnd
   DisableAutoOpenWizard: 1

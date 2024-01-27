@@ -293,6 +293,7 @@ GameObject:
   m_Component:
   - component: {fileID: 239630463}
   - component: {fileID: 239630462}
+  - component: {fileID: 239630464}
   m_Layer: 0
   m_Name: SceneController
   m_TagString: Untagged
@@ -312,6 +313,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef64ebbb1b5a442b59a341237425405b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  photonView: {fileID: 239630464}
   levelStart: {fileID: 1794819757}
   levelEnd: {fileID: 3028387570849772451, guid: 59052fbec86e54a5c99ced8880567fe8, type: 3}
   levelLength: 20
@@ -320,7 +322,7 @@ MonoBehaviour:
   - {fileID: 6079002354603181175, guid: d22f7323d63cc45a688df090450f4cac, type: 3}
   - {fileID: 8292553517120432397, guid: 4062c59f0da8b4b2fb5f2f032792fdae, type: 3}
   - {fileID: 4781676136255912291, guid: 338e63f8c6b144f74839905578aadc32, type: 3}
-  Character: {fileID: 0}
+  Character: {fileID: 1211912445496647530, guid: f9051e05a211a43c791601c7b416b151, type: 3}
 --- !u!4 &239630463
 Transform:
   m_ObjectHideFlags: 0
@@ -336,6 +338,33 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &239630464
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 239630461}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ownerId: 0
+  group: 0
+  OwnerShipWasTransfered: 0
+  prefixBackup: -1
+  synchronization: 0
+  onSerializeTransformOption: 3
+  onSerializeRigidBodyOption: 2
+  ownershipTransfer: 0
+  ObservedComponents:
+  - {fileID: 0}
+  ObservedComponentsFoldoutOpen: 1
+  viewIdField: 2
+  instantiationId: 2
+  currentMasterID: -1
+  isRuntimeInstantiated: 0
 --- !u!1 &503858585
 GameObject:
   m_ObjectHideFlags: 0
@@ -1750,7 +1779,7 @@ GameObject:
   - component: {fileID: 1648084150}
   m_Layer: 0
   m_Name: Scene
-  m_TagString: Untagged
+  m_TagString: SceneContainer
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
