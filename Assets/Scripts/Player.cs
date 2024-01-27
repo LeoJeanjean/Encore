@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.InputSystem;
 
 public class Player : Photon.MonoBehaviour
 {
@@ -13,6 +15,24 @@ public class Player : Photon.MonoBehaviour
 
     public GameObject PlayerCamera;
     public SpriteRenderer sr;
+
+
+    public TMP_Text PlayerNameText;
+
+    private float speed = 50f;
+    private float maxSpeed = 13f;
+    private float movement = 0f;
+    private float smoothMovement = 0f;
+    private float smoothVelocity;
+    private float lookingDirection = 1;
+
+    private float jumpSpeed = 15f;
+    private float dropSpeed = -15f;
+    private bool isGrounded = true;
+    private bool hasDoubleJump = true;
+    private float isHoldingJump = 0;
+    public Transform groundCheck;
+    public LayerMask groundLayer;
 
 
     public float moveSpeed;
@@ -27,15 +47,32 @@ public class Player : Photon.MonoBehaviour
             PlayerCamera.SetActive(true);
         }
 
+        rb.gravityScale = 2f;
     }
 
-    private void Update()
+    public void OnMove(InputValue inputValue)
     {
+        movement = inputValue.Get<float>();
+        if(movement != 0) lookingDirection = movement;
+    }
 
-        if (photonView.isMine)
+    public void OnJump(InputValue inputValue)
+    {
+        isHoldingJump = inputValue.Get<float>();
+        if (isGrounded || (hasDoubleJump && isHoldingJump == 1))
         {
             PlayerCamera.SetActive(true);
+            rb.velocity = new Vector2(rb.velocity.x, jumpSpeed);
+
+            if (isGrounded)
+                isGrounded = false;
+            else
+                hasDoubleJump = false;
+
+            isGrounded = false;
         }
+    }
+
 
         if (photonView.isMine)
         {
@@ -49,49 +86,65 @@ public class Player : Photon.MonoBehaviour
             {
                 anim.SetBool("Running", false);
             }
+
+    void OnCollisionEnter2D(Collision2D collision){
+        if(collision.gameObject.tag == "Obstacle"){
+            Debug.Log("touché !");
+
+        }
+    }
+
+    private void FixedUpdate()
+    {
+        if (photonView.isMine)
+        {
+            PlayerCamera.SetActive(true);
+        }
+
+        if (photonView.isMine)
+        {
+            CheckInput();
         }
     }
 
     private void CheckInput()
     {
-        var change = new Vector3(Input.GetAxis("Horizontal"), 0);
+        photonView.RPC("Move", PhotonTargets.AllBuffered, movement);
 
-        if (photonView.isMine)
-        {
-            transform.position += change * moveSpeed * Time.deltaTime;
-        }
-        else
-        {
-            photonView.RPC("Move", PhotonTargets.AllBuffered, change * moveSpeed * Time.deltaTime);
-        }
-
-        if (Input.GetAxis("Horizontal") > 0.1f)
+        if (movement > 0.1f)
         {
             photonView.RPC("FlipTrue", PhotonTargets.AllBuffered);
         }
-        else if (Input.GetAxis("Horizontal") < 0.1f)
+        else if (movement < 0.1f)
         {
             photonView.RPC("FlipFalse", PhotonTargets.AllBuffered);
         }
     }
 
     [PunRPC]
-    public void Move(Vector3 posChange)
+    public void Move(float movement)
     {
-        transform.position += posChange;
+        float targetVelocity = Mathf.SmoothDamp(
+            rb.velocity.x,
+            movement * speed,
+            ref smoothVelocity,
+            0.05f
+        );
+        targetVelocity = Mathf.Clamp(targetVelocity, -maxSpeed, maxSpeed);
+        rb.velocity = new Vector2(targetVelocity, rb.velocity.y);
     }
 
 
     [PunRPC]
     private void FlipTrue()
     {
-        sr.flipX = true;
+        rb.transform.localScale = new Vector2(1, 1);
     }
 
     [PunRPC]
     private void FlipFalse()
     {
-        sr.flipX = true;
+        rb.transform.localScale = new Vector2(-1, 1);
     }
 
 }
