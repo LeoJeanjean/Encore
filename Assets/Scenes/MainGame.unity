@@ -574,7 +574,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 87e5e092680f64e3f8e4d001f7370765, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 3ef74935f64b343c0b193bc75b66f1a4, type: 3}
   m_Type: 3
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -607,7 +607,7 @@ MonoBehaviour:
   gameManager: {fileID: 2117330197}
   abilityImage: {fileID: 1133506213}
   buton: {fileID: 1133506212}
-  cooldown: 5
+  cooldown: 10
   skill: anvil
 --- !u!1 &1319353413
 GameObject:
@@ -712,7 +712,7 @@ GameObject:
   - component: {fileID: 1389972868}
   - component: {fileID: 1389972867}
   - component: {fileID: 1389972869}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Ground
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1101,7 +1101,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef64ebbb1b5a442b59a341237425405b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  RunnerPrefab: {fileID: 2239948015613971495, guid: f9051e05a211a43c791601c7b416b151, type: 3}
+  RunnerPrefab: {fileID: 1211912445496647530, guid: f9051e05a211a43c791601c7b416b151, type: 3}
   ShooterCanvas: {fileID: 3549750854846942423}
   GameCanvas: {fileID: 654951556}
   SceneCamera: {fileID: 1319353413}

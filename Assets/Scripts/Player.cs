@@ -9,10 +9,10 @@ public class Player : Photon.MonoBehaviour
     public PhotonView photonView;
     public Rigidbody2D rb;
 
+    public Animator anim;
+
     public GameObject PlayerCamera;
     public SpriteRenderer sr;
-
-    public TMP_Text PlayerNameText;
 
 
     public float moveSpeed;
@@ -25,13 +25,6 @@ public class Player : Photon.MonoBehaviour
         if (photonView.isMine)
         {
             PlayerCamera.SetActive(true);
-            PlayerNameText.text = PhotonNetwork.playerName;
-        }
-
-        else
-        {
-            PlayerNameText.text = photonView.owner.name;
-            PlayerNameText.color = Color.yellow;
         }
 
     }
@@ -42,12 +35,20 @@ public class Player : Photon.MonoBehaviour
         if (photonView.isMine)
         {
             PlayerCamera.SetActive(true);
-
         }
 
         if (photonView.isMine)
         {
             CheckInput();
+
+            if (Mathf.Abs(Input.GetAxis("Horizontal")) > 0.1f)
+            {
+                anim.SetBool("Running", true);
+            }
+            else
+            {
+                anim.SetBool("Running", false);
+            }
         }
     }
 

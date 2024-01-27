@@ -8,6 +8,9 @@ public class Anvil : MonoBehaviour
 
     public PhotonView photonView;
 
+    public LayerMask GroundLayer;
+    public LayerMask PlayerLayer;
+
     private bool isDragging = false;
     [SerializeField] private Rigidbody2D rb;
 
@@ -35,6 +38,17 @@ public class Anvil : MonoBehaviour
                 photonView.RPC("Move", PhotonTargets.AllBuffered, mousePos);
             }
         }
+        else
+        {
+            RaycastHit hit;
+            if (Physics2D.Raycast(transform.position, transform.TransformDirection(Vector2.down), 5f, GroundLayer))
+            {
+                Debug.DrawRay(transform.position, transform.TransformDirection(Vector2.down) * 5f, Color.yellow);
+                photonView.RPC("Destroy", PhotonTargets.AllBuffered);
+            }
+
+        }
+
 
         if (Input.GetMouseButtonDown(0))
         {
@@ -44,6 +58,13 @@ public class Anvil : MonoBehaviour
     }
 
 
+
+
+    [PunRPC]
+    public void Destroy()
+    {
+        Destroy(gameObject, 5f);
+    }
 
     [PunRPC]
     public void Move(Vector3 mousePos)

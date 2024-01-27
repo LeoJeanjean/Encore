@@ -49,4 +49,5 @@ MonoBehaviour:
   - OnJoinedRoom
   - UpdateText
   - StartGame
+  - Destroy
   DisableAutoOpenWizard: 1
