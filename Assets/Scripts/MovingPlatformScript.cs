@@ -20,6 +20,6 @@ public class MovingPlatformScript : MonoBehaviour
         
         if(isMoving) transform.DOLocalMove(new Vector2(newPositionX,newPositionY), movementSpeed).SetEase(Ease.InOutSine).SetLoops(-1, LoopType.Yoyo);
 
-        if(isRotating) transform.DORotate(new Vector3(0, 360, 0), rotationSpeed).SetLoops(-1, LoopType.Restart).SetEase(Ease.Linear);
+        if(isRotating) transform.DORotate(new Vector3(0, 0, 360), rotationSpeed).SetLoops(-1, LoopType.Restart).SetEase(Ease.Linear);
     }
 }

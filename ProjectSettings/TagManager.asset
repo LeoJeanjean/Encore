@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Obstacle
   - SceneContainer
+  - Crowd
   layers:
   - Default
   - TransparentFX
