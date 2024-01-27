@@ -15,14 +15,44 @@ public class GameManager : MonoBehaviour
 
     public GameObject anvilPrefab;
 
-    public int target = 30;
+    public int target = 45;
+
+    public float abilityCoolDownLenght = 1.5f;
+
+    public float abilityCoolDownOpacity = 0f;
+
+    public bool abilityCoolDown = false;
+
+    public bool usingAbility = false;
+
 
     private void Update()
     {
-
         if (Application.targetFrameRate != target)
             Application.targetFrameRate = target;
         PingText.text = "Ping : " + PhotonNetwork.GetPing();
+
+        if (abilityCoolDown)
+        {
+            if (abilityCoolDownOpacity <= 0)
+            {
+                abilityCoolDownOpacity = 1f;
+                abilityCoolDown = false;
+            }
+            else
+            {
+                abilityCoolDownOpacity -= 1 / abilityCoolDownLenght * Time.deltaTime;
+            }
+        }
+
+    }
+
+
+
+    public void StartGlobalCoolDown()
+    {
+        abilityCoolDown = true;
+        abilityCoolDownOpacity = 1f;
     }
 
 

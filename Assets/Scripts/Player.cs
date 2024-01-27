@@ -11,8 +11,11 @@ public class Player : Photon.MonoBehaviour
     public PhotonView photonView;
     public Rigidbody2D rb;
 
+    public Animator anim;
+
     public GameObject PlayerCamera;
     public SpriteRenderer sr;
+
 
     public TMP_Text PlayerNameText;
 
@@ -41,23 +44,11 @@ public class Player : Photon.MonoBehaviour
 
         if (photonView.isMine)
         {
-            PlayerCamera.SetActive(true);
-            PlayerNameText.text = PhotonNetwork.playerName;
-        }
 
-        else
-        {
-            PlayerNameText.text = photonView.owner.name;
-            PlayerNameText.color = Color.yellow;
+            PlayerCamera.SetActive(true);
         }
 
         rb.gravityScale = 2f;
-    }
-
-    public void OnMove(InputValue inputValue)
-    {
-        movement = inputValue.Get<float>();
-        if(movement != 0) lookingDirection = movement;
     }
 
     public void OnJump(InputValue inputValue)
@@ -76,9 +67,13 @@ public class Player : Photon.MonoBehaviour
         }
     }
 
-    void OnCollisionEnter2D(Collision2D collision){
-        if(collision.gameObject.tag == "Obstacle"){
+
+    void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag == "Obstacle")
+        {
             Debug.Log("touché !");
+
         }
     }
 
@@ -87,16 +82,27 @@ public class Player : Photon.MonoBehaviour
         if (photonView.isMine)
         {
             PlayerCamera.SetActive(true);
-        }
 
-        if (photonView.isMine)
-        {
+
+
+            if (Mathf.Abs(Input.GetAxis("Horizontal")) > 0.1f)
+            {
+                anim.SetBool("Running", true);
+            }
+            else
+            {
+                anim.SetBool("Running", false);
+            }
+
             CheckInput();
+
         }
     }
 
     private void CheckInput()
     {
+        movement = Input.GetAxis("Horizontal") * speed * Time.deltaTime;
+
         photonView.RPC("Move", PhotonTargets.AllBuffered, movement);
 
         if (movement > 0.1f)
