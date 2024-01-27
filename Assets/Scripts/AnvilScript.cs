@@ -7,15 +7,19 @@ public class Anvil : MonoBehaviour
 {
 
     public PhotonView photonView;
-
     public LayerMask GroundLayer;
     public LayerMask PlayerLayer;
 
     private bool isDragging = false;
     [SerializeField] private Rigidbody2D rb;
 
+    private GameManager gameManager;
+
     private void Start()
     {
+
+        gameManager = FindObjectOfType<GameManager>();
+
         isDragging = true;
     }
 
@@ -52,6 +56,8 @@ public class Anvil : MonoBehaviour
 
         if (Input.GetMouseButtonDown(0))
         {
+            gameManager.usingAbility = false;
+            gameManager.StartGlobalCoolDown();
             rb.gravityScale = 1;
             isDragging = false;
         }

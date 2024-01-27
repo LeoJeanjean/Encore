@@ -44,16 +44,11 @@ public class Player : Photon.MonoBehaviour
 
         if (photonView.isMine)
         {
+
             PlayerCamera.SetActive(true);
         }
 
         rb.gravityScale = 2f;
-    }
-
-    public void OnMove(InputValue inputValue)
-    {
-        movement = inputValue.Get<float>();
-        if(movement != 0) lookingDirection = movement;
     }
 
     public void OnJump(InputValue inputValue)
@@ -61,7 +56,6 @@ public class Player : Photon.MonoBehaviour
         isHoldingJump = inputValue.Get<float>();
         if (isGrounded || (hasDoubleJump && isHoldingJump == 1))
         {
-            PlayerCamera.SetActive(true);
             rb.velocity = new Vector2(rb.velocity.x, jumpSpeed);
 
             if (isGrounded)
@@ -74,21 +68,10 @@ public class Player : Photon.MonoBehaviour
     }
 
 
-        if (photonView.isMine)
+    void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag == "Obstacle")
         {
-            CheckInput();
-
-            if (Mathf.Abs(Input.GetAxis("Horizontal")) > 0.1f)
-            {
-                anim.SetBool("Running", true);
-            }
-            else
-            {
-                anim.SetBool("Running", false);
-            }
-
-    void OnCollisionEnter2D(Collision2D collision){
-        if(collision.gameObject.tag == "Obstacle"){
             Debug.Log("touché !");
 
         }
@@ -99,16 +82,27 @@ public class Player : Photon.MonoBehaviour
         if (photonView.isMine)
         {
             PlayerCamera.SetActive(true);
-        }
 
-        if (photonView.isMine)
-        {
+
+
+            if (Mathf.Abs(Input.GetAxis("Horizontal")) > 0.1f)
+            {
+                anim.SetBool("Running", true);
+            }
+            else
+            {
+                anim.SetBool("Running", false);
+            }
+
             CheckInput();
+
         }
     }
 
     private void CheckInput()
     {
+        movement = Input.GetAxis("Horizontal") * speed * Time.deltaTime;
+
         photonView.RPC("Move", PhotonTargets.AllBuffered, movement);
 
         if (movement > 0.1f)
