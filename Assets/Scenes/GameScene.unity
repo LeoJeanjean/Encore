@@ -286,7 +286,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 32bb645c927d84cbc899ebf51983b57c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  character: {fileID: 0}
+  character: {fileID: 211297344}
   groundCheck: {fileID: 1416198313}
   groundLayer:
     serializedVersion: 2
@@ -478,6 +478,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 709141188}
     m_Modifications:
+    - target: {fileID: 703526785215038479, guid: 4094dab871d0f48439d341f1a72677a6, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 2366809008934289402, guid: 4094dab871d0f48439d341f1a72677a6, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
