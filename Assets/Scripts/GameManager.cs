@@ -6,29 +6,49 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    public GameObject PlayerPrefab;
+    public GameObject RunnerPrefab;
+    public GameObject ShooterCanvas;
+
     public GameObject GameCanvas;
     public GameObject SceneCamera;
     public TMP_Text PingText;
 
+    public int target = 30;
 
     private void Update()
     {
+
+        if (Application.targetFrameRate != target)
+            Application.targetFrameRate = target;
         PingText.text = "Ping : " + PhotonNetwork.GetPing();
     }
 
+
     private void Awake()
     {
+        QualitySettings.vSyncCount = 0;
+        Application.targetFrameRate = target;
         GameCanvas.SetActive(true);
-
-        SpawnPlayer();
+        var runner = PhotonNetwork.playerName.Split("/")[1];
+        Debug.Log(PhotonNetwork.playerName);
+        Debug.Log(runner);
+        if (runner == "true")
+        {
+            SpawnPlayer();
+        }
+        else
+        {
+            ShooterCanvas.SetActive(true);
+            SceneCamera.SetActive(false);
+        }
     }
 
     public void SpawnPlayer()
     {
+
         float randomValue = Random.RandomRange(-1f, 1f);
 
-        PhotonNetwork.Instantiate(PlayerPrefab.name, new Vector2(this.transform.position.x * randomValue, this.transform.position.y), Quaternion.identity, 0);
+        PhotonNetwork.Instantiate(RunnerPrefab.name, new Vector2(this.transform.position.x * randomValue, this.transform.position.y), Quaternion.identity, 0);
         GameCanvas.SetActive(false);
         SceneCamera.SetActive(false);
     }
