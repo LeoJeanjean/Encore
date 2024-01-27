@@ -5,7 +5,7 @@ using UnityEngine.InputSystem;
 
 public class CharacterController : MonoBehaviour
 {
-    public Rigidbody2D character;
+    public Rigidbody2D rb;
     private float speed = 50f;
     private float maxSpeed = 13f;
     private float movement = 0f;
@@ -23,7 +23,7 @@ public class CharacterController : MonoBehaviour
 
     void Start()
     {
-        character.gravityScale = 2f;
+        rb.gravityScale = 2f;
     }
 
     public void OnMove(InputValue inputValue)
@@ -37,7 +37,7 @@ public class CharacterController : MonoBehaviour
         isHoldingJump = inputValue.Get<float>();
         if (isGrounded || (hasDoubleJump && isHoldingJump == 1))
         {
-            character.velocity = new Vector2(character.velocity.x, jumpSpeed);
+            rb.velocity = new Vector2(rb.velocity.x, jumpSpeed);
 
             if (isGrounded)
                 isGrounded = false;
@@ -58,23 +58,23 @@ public class CharacterController : MonoBehaviour
     void FixedUpdate()
     {
         float targetVelocity = Mathf.SmoothDamp(
-            character.velocity.x,
+            rb.velocity.x,
             movement * speed,
             ref smoothVelocity,
             0.05f
         );
         targetVelocity = Mathf.Clamp(targetVelocity, -maxSpeed, maxSpeed);
-        character.velocity = new Vector2(targetVelocity, character.velocity.y);
+        rb.velocity = new Vector2(targetVelocity, rb.velocity.y);
 
         if (isHoldingJump == 0)
         {
-            character.AddForce(new Vector2(character.velocity.x, dropSpeed));
+            rb.AddForce(new Vector2(rb.velocity.x, dropSpeed));
         }
 
         isGrounded = Physics2D.OverlapCircle(groundCheck.position, 0.1f, groundLayer);
         if (isGrounded)
             hasDoubleJump = true;
 
-        character.transform.localScale = new Vector2(lookingDirection, 1);
+        rb.transform.localScale = new Vector2(lookingDirection, 1);
     }
 }
