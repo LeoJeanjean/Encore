@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class Player : Photon.MonoBehaviour
 {
@@ -39,6 +38,7 @@ public class Player : Photon.MonoBehaviour
 
     private void Update()
     {
+
         if (photonView.isMine)
         {
             PlayerCamera.SetActive(true);

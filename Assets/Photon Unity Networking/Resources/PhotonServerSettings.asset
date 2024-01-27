@@ -46,4 +46,6 @@ MonoBehaviour:
   - FlipFalse
   - FlipTrue
   - Move
+  - OnJoinedRoom
+  - UpdateText
   DisableAutoOpenWizard: 1
