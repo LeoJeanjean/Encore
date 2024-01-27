@@ -90,4 +90,8 @@ public class CharacterController : MonoBehaviour
             rb.velocity = new Vector2(rb.velocity.x * 0.70f, rb.velocity.y);
         }
     }
+
+    public void Respawn(){
+        transform.position = new Vector2(0,0);
+    }
 }
