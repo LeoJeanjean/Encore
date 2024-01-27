@@ -11,6 +11,7 @@ public class CharacterController : MonoBehaviour
     private float movement = 0f;
     private float smoothMovement = 0f;
     private float smoothVelocity;
+    private float lookingDirection = 1;
 
     private float jumpSpeed = 15f;
     private float dropSpeed = -15f;
@@ -28,6 +29,7 @@ public class CharacterController : MonoBehaviour
     public void OnMove(InputValue inputValue)
     {
         movement = inputValue.Get<float>();
+        if(movement != 0) lookingDirection = movement;
     }
 
     public void OnJump(InputValue inputValue)
@@ -72,5 +74,7 @@ public class CharacterController : MonoBehaviour
         isGrounded = Physics2D.OverlapCircle(groundCheck.position, 0.1f, groundLayer);
         if (isGrounded)
             hasDoubleJump = true;
+
+        character.transform.localScale = new Vector2(lookingDirection, 1);
     }
 }
