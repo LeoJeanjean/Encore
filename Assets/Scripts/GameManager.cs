@@ -13,6 +13,8 @@ public class GameManager : MonoBehaviour
     public GameObject SceneCamera;
     public TMP_Text PingText;
 
+    public GameObject anvilPrefab;
+
     public int target = 30;
 
     private void Update()
@@ -53,6 +55,11 @@ public class GameManager : MonoBehaviour
         SceneCamera.SetActive(false);
     }
 
+
+    public void SpawnAnvil(Vector3 mousePos)
+    {
+        PhotonNetwork.Instantiate(anvilPrefab.name, mousePos, Quaternion.identity, 0);
+    }
 
 
 }

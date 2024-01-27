@@ -61,7 +61,7 @@ public class Player : Photon.MonoBehaviour
         }
         else
         {
-            photonView.RPC("Move", PhotonTargets.AllBuffered, change);
+            photonView.RPC("Move", PhotonTargets.AllBuffered, change * moveSpeed * Time.deltaTime);
         }
 
         if (Input.GetAxis("Horizontal") > 0.1f)

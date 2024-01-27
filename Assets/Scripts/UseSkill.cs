@@ -7,10 +7,13 @@ using UnityEngine.UI;
 
 public class UseSkill : MonoBehaviour
 {
+
+    public GameManager gameManager;
     public Image abilityImage;
     public Button buton;
     public float cooldown = 5;
     bool isCoolDown = false;
+    public string skill;
 
 
     private void Start()
@@ -26,6 +29,14 @@ public class UseSkill : MonoBehaviour
         {
             abilityImage.fillAmount = 1;
             isCoolDown = true;
+
+
+            if (skill == "anvil")
+            {
+                var mousePos = Input.mousePosition;
+
+                gameManager.SpawnAnvil(mousePos);
+            }
         }
     }
 

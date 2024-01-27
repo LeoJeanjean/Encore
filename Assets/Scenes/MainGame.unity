@@ -604,9 +604,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 34e2f93f9797349099bb091e3a756b69, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gameManager: {fileID: 2117330197}
   abilityImage: {fileID: 1133506213}
   buton: {fileID: 1133506212}
   cooldown: 5
+  skill: anvil
 --- !u!1 &1319353413
 GameObject:
   m_ObjectHideFlags: 0
@@ -778,7 +780,7 @@ Transform:
   m_GameObject: {fileID: 1389972866}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.0099987, y: -4.43, z: 0}
+  m_LocalPosition: {x: 0.0099987, y: -4.49, z: 0}
   m_LocalScale: {x: 76.975945, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -856,7 +858,7 @@ Transform:
   m_GameObject: {fileID: 1486592966}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -6.58, z: -10}
+  m_LocalPosition: {x: 0, y: 0, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1104,6 +1106,7 @@ MonoBehaviour:
   GameCanvas: {fileID: 654951556}
   SceneCamera: {fileID: 1319353413}
   PingText: {fileID: 1505807798}
+  anvilPrefab: {fileID: 5267261963120689052, guid: d29691df52dd24dfe9d479197c6150aa, type: 3}
   target: 30
 --- !u!1 &3549750854846942423
 GameObject:
@@ -1131,7 +1134,7 @@ Transform:
   m_GameObject: {fileID: 3549750854846942423}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.11174187, y: 6.743313, z: -6.194432}
+  m_LocalPosition: {x: 0, y: 0, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
