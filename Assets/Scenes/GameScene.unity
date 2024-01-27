@@ -395,6 +395,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   levelStart: {fileID: 6994689995792520840, guid: 4094dab871d0f48439d341f1a72677a6, type: 3}
   levelEnd: {fileID: 3028387570849772451, guid: 59052fbec86e54a5c99ced8880567fe8, type: 3}
+  levelLength: 20
   obstacleGroupsList:
   - {fileID: 1400588791326768128, guid: 86ed4e60e294b492d9cd745a445f5fd3, type: 3}
   - {fileID: 6079002354603181175, guid: d22f7323d63cc45a688df090450f4cac, type: 3}

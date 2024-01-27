@@ -6,6 +6,9 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
+
+    public PhotonView photonView;
+
     public GameObject RunnerPrefab;
     public GameObject ShooterCanvas;
 
@@ -15,7 +18,7 @@ public class GameManager : MonoBehaviour
 
     public GameObject anvilPrefab;
 
-    public int target = 45;
+    public int target = 30;
 
     public float abilityCoolDownLenght = 1.5f;
 
@@ -25,6 +28,15 @@ public class GameManager : MonoBehaviour
 
     public bool usingAbility = false;
 
+    public List<string> abilitySkills = new List<string>
+            { "enclume", "gravite", "rideaux", "pouete", "blague", "chaussuresGlissantes",
+            "accelerations", "ralentissement", "picInvisible", "inversionCommandes", "terrainFolie", 
+            //"sansDessusDessous" ,
+            "seisme", "chaussuresCollantes", "pointColle", "pointGlace", "banana"
+            };
+
+
+    private Player player;
 
     private void Update()
     {
@@ -80,7 +92,9 @@ public class GameManager : MonoBehaviour
 
         float randomValue = Random.RandomRange(-1f, 1f);
 
-        PhotonNetwork.Instantiate(RunnerPrefab.name, new Vector2(this.transform.position.x * randomValue, this.transform.position.y), Quaternion.identity, 0);
+        var playerGameObject = PhotonNetwork.Instantiate(RunnerPrefab.name, new Vector2(this.transform.position.x * randomValue, this.transform.position.y), Quaternion.identity, 0);
+
+        player = playerGameObject.GetComponent<Player>();
         GameCanvas.SetActive(false);
         SceneCamera.SetActive(false);
     }
@@ -90,6 +104,73 @@ public class GameManager : MonoBehaviour
     {
         PhotonNetwork.Instantiate(anvilPrefab.name, mousePos, Quaternion.identity, 0);
     }
+
+    public void ManageSkill(string skill)
+    {
+        if (skill == "gravite")
+        {
+            StartGlobalCoolDown();
+            photonView.RPC("Gravite", PhotonTargets.AllBuffered);
+        }
+        if (skill == "chaussuresGlissantes")
+        {
+            StartGlobalCoolDown();
+            ManageSkill(skill);
+        }
+    }
+
+    [PunRPC]
+    public void Gravite()
+    {
+        if (!player)
+        {
+            return;
+        }
+        player.rb.gravityScale *= 10;
+
+        StartCoroutine(ResetGravityScale());
+    }
+
+    private IEnumerator ResetGravityScale()
+    {
+        yield return new WaitForSeconds(2.0f);
+        player.rb.gravityScale /= 10;
+    }
+
+
+    [PunRPC]
+    public void slipperyShoes()
+    {
+        if (!player)
+        {
+            return;
+        }
+        var collider = player.GetComponent<BoxCollider2D>();
+
+
+        StartCoroutine(ResetSlipperyShoes());
+
+        ChangeColliderFriction(collider, 5f);
+    }
+
+    private void ChangeColliderFriction(BoxCollider2D collider, float frictionValue)
+    {
+        PhysicsMaterial2D newMaterial = new PhysicsMaterial2D
+        {
+            friction = frictionValue
+        };
+
+        collider.sharedMaterial = newMaterial;
+    }
+
+    private IEnumerator ResetSlipperyShoes()
+    {
+        var collider = player.GetComponent<BoxCollider2D>();
+        yield return new WaitForSeconds(2.0f);
+        ChangeColliderFriction(collider, 0.4f);
+    }
+
+
 
 
 }
