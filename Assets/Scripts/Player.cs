@@ -15,7 +15,7 @@ public class Player : Photon.MonoBehaviour
     public GameObject PlayerCamera;
     public SpriteRenderer sr;
 
-    private float speed = 50f;
+    public float speed = 50f;
     private float maxSpeed = 13f;
     private float movement = 0f;
     private float smoothMovement = 0f;
@@ -31,6 +31,8 @@ public class Player : Photon.MonoBehaviour
     public LayerMask groundLayer;
 
     public float moveSpeed;
+
+    public bool reverse = false;
 
     void Start()
     {
@@ -65,7 +67,9 @@ public class Player : Photon.MonoBehaviour
     {
         if (photonView.isMine)
         {
-            movement = Input.GetAxis("Horizontal");
+            movement = reverse ? -Input.GetAxis("Horizontal") : Input.GetAxis("Horizontal");
+
+            Debug.Log(reverse);
 
             isGrounded = Physics2D.OverlapCircle(groundCheck.position, 0.1f, groundLayer);
             if (isGrounded)

@@ -23,8 +23,6 @@ public class SceneController : MonoBehaviour
 
     void Awake()
     {
-
-
         sceneContainer = GameObject.FindWithTag("SceneContainer");
 
         levelStartData = levelStart.GetComponent<ObstacleData>();
@@ -58,17 +56,6 @@ public class SceneController : MonoBehaviour
         }
         obstacleSpawnPosition = currentBeginning + levelEndData.beginning.transform.position * new Vector2(-1, -1);
         PhotonNetwork.Instantiate(levelEnd.name, obstacleSpawnPosition, Quaternion.identity, 0);
-
-
-        //photonView.RPC("InstantiatePart", PhotonTargets.AllBuffered, obstacleSpawnPosition);
     }
 
-
-
-    [PunRPC]
-    private void InstantiatePart(Vector2 obstacleSpawnPosition)
-    {
-        Instantiate<GameObject>(levelEnd, obstacleSpawnPosition, Quaternion.identity, sceneContainer.transform);
-
-    }
 }

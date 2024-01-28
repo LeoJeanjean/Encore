@@ -177,7 +177,7 @@ MonoBehaviour:
   abilityImage: {fileID: 1444088489}
   buton: {fileID: 1444088488}
   cooldown: 10
-  skill: anvil
+  skill: ralentissement
 --- !u!1 &228620248
 GameObject:
   m_ObjectHideFlags: 0
@@ -569,7 +569,7 @@ MonoBehaviour:
   abilityImage: {fileID: 807961410}
   buton: {fileID: 807961409}
   cooldown: 10
-  skill: chaussuresGlissantes
+  skill: sansDessusDessous
 --- !u!1 &637539365
 GameObject:
   m_ObjectHideFlags: 0
@@ -907,7 +907,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 3ef74935f64b343c0b193bc75b66f1a4, type: 3}
+  m_Sprite: {fileID: 21300000, guid: eecc385852e6c4ec38e1b0add3f02c86, type: 3}
   m_Type: 3
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1219,7 +1219,7 @@ MonoBehaviour:
   abilityImage: {fileID: 1133506213}
   buton: {fileID: 1133506212}
   cooldown: 10
-  skill: gravite
+  skill: acceleration
 --- !u!1 &1217294910
 GameObject:
   m_ObjectHideFlags: 0
@@ -1987,6 +1987,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c54e1da00b9894b7099ec78e12512a01, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sprites:
+  - {fileID: 21300000, guid: ba1584746ec334284823c8f3a398b0eb, type: 3}
+  - {fileID: 21300000, guid: f507cdc7bfc7248d8aeac3a510e7ac71, type: 3}
+  - {fileID: 21300000, guid: 1806b5fb8c8af438982043366ea26d16, type: 3}
+  - {fileID: 21300000, guid: 152c752a020f7498aab3a5b7ff70592f, type: 3}
+  - {fileID: 21300000, guid: b2086c422f5bb4e1a84de536734939aa, type: 3}
+  - {fileID: 21300000, guid: 3ef74935f64b343c0b193bc75b66f1a4, type: 3}
+  - {fileID: 21300000, guid: eecc385852e6c4ec38e1b0add3f02c86, type: 3}
+  - {fileID: 21300000, guid: ef9eb7d42b51e4a32b9054b0c0df4d5f, type: 3}
+  - {fileID: 21300000, guid: 76a880d7e77c742868bffded23a133b9, type: 3}
+  - {fileID: 21300000, guid: 4336a39dd05fc44e8bf32d8520078983, type: 3}
+  - {fileID: 21300000, guid: 2213f89ecfe004e3fb95fe9c03acf8c2, type: 3}
+  - {fileID: 21300000, guid: a378fb5ddba8846c98dd3f67dfb0900b, type: 3}
+  - {fileID: 21300000, guid: ca9b6aadf341548ae87ebd2f29b31f26, type: 3}
+  - {fileID: 21300000, guid: c74f3560fcaa24a60ba5832015040431, type: 3}
+  - {fileID: 21300000, guid: b6a35bbe6ec61462a85925b9f440f261, type: 3}
+  - {fileID: 21300000, guid: 7cf2b1f45aa8045c4882f33b5dd048d1, type: 3}
   photonView: {fileID: 2117330198}
   RunnerPrefab: {fileID: 1211912445496647530, guid: f9051e05a211a43c791601c7b416b151, type: 3}
   ShooterCanvas: {fileID: 3549750854846942423}
@@ -1994,6 +2011,7 @@ MonoBehaviour:
   SceneCamera: {fileID: 1319353413}
   PingText: {fileID: 1505807798}
   anvilPrefab: {fileID: 5267261963120689052, guid: d29691df52dd24dfe9d479197c6150aa, type: 3}
+  bananaPrefab: {fileID: 5267261963120689052, guid: 9004ca7d208c94b67bb6cec9ca56298e, type: 3}
   target: 30
   abilityCoolDownLenght: 1.5
   abilityCoolDownOpacity: 0

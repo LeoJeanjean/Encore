@@ -82,7 +82,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -1021938737, guid: 7369ac495074d401c9c6db595b9eceb6, type: 3}
+  m_Sprite: {fileID: 566267575, guid: 7369ac495074d401c9c6db595b9eceb6, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -90,7 +90,7 @@ SpriteRenderer:
   m_Size: {x: 1.03, y: 1.89}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!50 &7225697869438450178
@@ -187,6 +187,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 8
   moveSpeed: 5
+  reverse: 0
 --- !u!114 &5342317313424956284
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -303,7 +304,7 @@ Animator:
   m_GameObject: {fileID: 1211912445496647530}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: adc7cea9b2a2e4d5a8e698df0e5742ca, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -328,8 +329,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ShowLayerWeightsInspector: 1
   ShowParameterInspector: 1
-  m_SynchronizeParameters: []
-  m_SynchronizeLayers: []
+  m_SynchronizeParameters:
+  - Type: 4
+    SynchronizeType: 0
+    Name: Running
+  m_SynchronizeLayers:
+  - SynchronizeType: 0
+    LayerIndex: 0
 --- !u!1 &2189047397649486283
 GameObject:
   m_ObjectHideFlags: 0
