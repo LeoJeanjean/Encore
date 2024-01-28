@@ -54,8 +54,11 @@ public class SceneController : MonoBehaviour
 
         for (int i = 0; i < levelLength+levelsCleared*2; i++)
         {
-
-            int newObstacleIndex = Random.Range(0, obstacleGroupsList.Count);
+            int newObstacleIndex = Random.Range(0, obstacleGroupsList.Count); //pour chaque niveau fini, on augmente les chances d'avoir des niveaux difficiles
+            if(obstacleGroupsList[newObstacleIndex].difficulty == 0 && levelsCleared >= 1) newObstacleIndex = Random.Range(0, obstacleGroupsList.Count);
+            if(obstacleGroupsList[newObstacleIndex].difficulty == 0 && levelsCleared >= 2) newObstacleIndex = Random.Range(0, obstacleGroupsList.Count);
+            if(obstacleGroupsList[newObstacleIndex].difficulty == 0 && levelsCleared >= 3) newObstacleIndex = Random.Range(0, obstacleGroupsList.Count);
+            if(obstacleGroupsList[newObstacleIndex].difficulty == 0 && levelsCleared >= 5) newObstacleIndex = Random.Range(0, obstacleGroupsList.Count);
             if(newObstacleIndex == previousIndex) newObstacleIndex = Random.Range(0, obstacleGroupsList.Count);
             previousIndex = newObstacleIndex;
 

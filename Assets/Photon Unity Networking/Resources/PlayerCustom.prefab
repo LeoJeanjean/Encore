@@ -155,7 +155,7 @@ Rigidbody2D:
     m_Bits: 0
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 4
 --- !u!114 &7801312085682610018
 MonoBehaviour:
@@ -176,6 +176,7 @@ MonoBehaviour:
   PlayerCamera: {fileID: 2189047397649486283}
   sr: {fileID: 8442744408520031758}
   speed: 50
+  maxSpeed: 13
   groundCheck: {fileID: 6656710304111695552}
   groundLayer:
     serializedVersion: 2
@@ -654,7 +655,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 1
-  m_BackGroundColor: {r: 0.5137255, g: 0.6677975, b: 1, a: 0}
+  m_BackGroundColor: {r: 0.90588236, g: 0.8235294, b: 0.6862745, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
