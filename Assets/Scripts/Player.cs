@@ -74,21 +74,9 @@ public class Player : Photon.MonoBehaviour
                 hasDoubleJump = true;
 
             var jump = Input.GetKeyDown(KeyCode.Space);
-
             if (jump)
             {
-                if (isGrounded)
-                {
-                    // First jump
-                    photonView.RPC("changeVelocity", PhotonTargets.AllBuffered, new Vector2(rb.velocity.x, jumpSpeed));
-                    isGrounded = false;
-                }
-                else if (hasDoubleJump)
-                {
-                    // Double jump
-                    photonView.RPC("changeVelocity", PhotonTargets.AllBuffered, new Vector2(rb.velocity.x, jumpSpeed));
-                    hasDoubleJump = false;
-                }
+                PerformJump();
             }
 
             var jumpDropped = Input.GetKeyUp(KeyCode.Space);
@@ -122,7 +110,14 @@ public class Player : Photon.MonoBehaviour
         }
     }
 
-
+    private void PerformJump() {
+        if (isGrounded) {
+            changeVelocity(new Vector2(rb.velocity.x, jumpSpeed));
+        } else if (hasDoubleJump) {
+            changeVelocity(new Vector2(rb.velocity.x, jumpSpeed));
+            hasDoubleJump = false;
+        }
+    }
 
     [PunRPC]
     private void changeVelocity(Vector2 velocity)

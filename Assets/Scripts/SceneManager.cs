@@ -13,7 +13,10 @@ public class SceneController : MonoBehaviour
     public GameObject levelEnd;
     private ObstacleData levelEndData;
 
-    public int levelLength;
+    private bool isLevelGenerated;
+
+    //public int levelLength;
+    private int levelLength = 5;
 
     public List<ObstacleData> obstacleGroupsList;
 
@@ -41,13 +44,17 @@ public class SceneController : MonoBehaviour
 
     public void GenerateLevel()
     {
+        isLevelGenerated = true;
 
         Vector2 currentBeginning = levelStartData.end.transform.position;
+        int previousIndex = -1;
 
-        for (int i = 0; i < levelLength; i++)
+        for (int i = 0; i < levelLength+levelsCleared*2; i++)
         {
 
             int newObstacleIndex = Random.Range(0, obstacleGroupsList.Count);
+            if(newObstacleIndex == previousIndex) newObstacleIndex = Random.Range(0, obstacleGroupsList.Count);
+            previousIndex = newObstacleIndex;
 
             obstacleSpawnPosition = currentBeginning + obstacleGroupsList[newObstacleIndex].beginning.transform.position * new Vector2(-1, -1);
 
