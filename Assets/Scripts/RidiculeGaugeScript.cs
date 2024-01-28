@@ -2,11 +2,12 @@ using TMPro;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.TextCore.Text;
 
 public class RidiculeGaugeScript : MonoBehaviour
 {
-    private float ridiculeJaugeAmount = 35f;
-    public TextMeshProUGUI ridiculeJaugeText;
+    [HideInInspector] public float ridiculeJaugeAmount = 35f;
+    //public TextMeshProUGUI ridiculeJaugeText;
     public TextMeshProUGUI hilarityMultiplierText;
 
     private Image crowdUIImage;
@@ -39,7 +40,7 @@ public class RidiculeGaugeScript : MonoBehaviour
 
             if(invincibility > 0) invincibility -= Time.deltaTime;
 
-            ridiculeJaugeText.SetText("Ridicule: "+Mathf.FloorToInt(ridiculeJaugeAmount));
+            //ridiculeJaugeText.SetText("Ridicule: "+Mathf.FloorToInt(ridiculeJaugeAmount));
             hilarityMultiplierText.SetText("x"+hilarityMultiplier);
 
             switch (ridiculeJaugeAmount)
@@ -105,5 +106,6 @@ public class RidiculeGaugeScript : MonoBehaviour
     void RidiculeDeath(){
         Debug.Log("DEAD!");
         isDead = true;
+        GameObject.FindWithTag("Player").GetComponent<Player>().Respawn(0);
     }
 }

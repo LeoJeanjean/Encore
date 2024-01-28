@@ -620,7 +620,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &637204540
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -946,6 +946,7 @@ MonoBehaviour:
   - {fileID: 922109938776821306, guid: 4ead9fcd2c5a64753a2fae0417975ce7, type: 3}
   - {fileID: 644219576099219699, guid: b13ed2ae13c374e258884d86b6aa989c, type: 3}
   Character: {fileID: 2736553620093331983}
+  levelsCleared: 0
 --- !u!4 &1700846993
 Transform:
   m_ObjectHideFlags: 0
@@ -1702,7 +1703,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 860ec337ef96443cb9aefd00a91f0cdd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ridiculeJaugeText: {fileID: 2014782488}
   hilarityMultiplierText: {fileID: 409095458}
   crowdLevels:
   - {fileID: 21300000, guid: cabcbeeb4308b4f308088ba94ccda738, type: 3}
