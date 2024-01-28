@@ -71,4 +71,6 @@ MonoBehaviour:
   - ChaussuresGlissantes
   - Slippery
   - ChangeForceImpulse
+  - Rideaux
+  - Seisme
   DisableAutoOpenWizard: 1

@@ -7,7 +7,6 @@ using UnityEngine.InputSystem;
 public class Player : Photon.MonoBehaviour
 {
     public RidiculeGaugeScript ridiculeGaugeScript;
-
     public PhotonView photonView;
     public Rigidbody2D rb;
 
