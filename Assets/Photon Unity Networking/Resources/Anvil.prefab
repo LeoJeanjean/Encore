@@ -180,6 +180,8 @@ MonoBehaviour:
   PlayerLayer:
     serializedVersion: 2
     m_Bits: 128
+  anvil: 1
+  timer: 5
   rb: {fileID: 9051309980511788312}
 --- !u!114 &2544339005089056633
 MonoBehaviour:

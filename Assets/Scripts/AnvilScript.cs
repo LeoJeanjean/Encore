@@ -10,12 +10,16 @@ public class Anvil : MonoBehaviour
     public LayerMask GroundLayer;
     public LayerMask PlayerLayer;
 
+    public bool anvil;
+
     private bool isDragging = false;
 
     public float timer = 5f;
     [SerializeField] private Rigidbody2D rb;
 
     private GameManager gameManager;
+
+    private bool played = false;
 
     private void Start()
     {
@@ -50,9 +54,13 @@ public class Anvil : MonoBehaviour
         }
         else
         {
-            RaycastHit hit;
-            if (Physics2D.Raycast(transform.position, transform.TransformDirection(Vector2.down), 5f, GroundLayer))
+            if (Physics2D.Raycast(transform.position, transform.TransformDirection(Vector2.down), 2f, GroundLayer))
             {
+                if (anvil && !played)
+                {
+                    photonView.RPC("Hit", PhotonTargets.AllBuffered);
+                    played = true;
+                }
                 Debug.DrawRay(transform.position, transform.TransformDirection(Vector2.down) * 5f, Color.yellow);
                 photonView.RPC("Destroy", PhotonTargets.AllBuffered);
             }
@@ -73,6 +81,12 @@ public class Anvil : MonoBehaviour
     }
 
 
+
+    [PunRPC]
+    public void Hit()
+    {
+        gameManager.playSound("Anvil");
+    }
 
 
     [PunRPC]

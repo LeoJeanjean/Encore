@@ -9,6 +9,7 @@ public class GameManager : MonoBehaviour
 {
 
     public Sprite[] sprites;
+    public AudioClip[] sounds;
 
     public PhotonView photonView;
 
@@ -35,7 +36,7 @@ public class GameManager : MonoBehaviour
 
     public List<string> abilitySkills = new List<string> { };
 
-
+    public AudioSource audioSource;
 
     private Player player;
 
@@ -72,19 +73,22 @@ public class GameManager : MonoBehaviour
         "PointColle",
         "pointGlace",
         "Blague", 
-        */
-
-        abilitySkills = new List<string>  {
-                "Enclume",
-                "Gravite",
+  "Gravite",
                 "Acceleration",
                 "Rallentissement",
                 "GameplayReverse",
                 "UpsideDown",
                 "ChaussuresGlissantes",
                 "Banane",
-                "Seisme",
 
+       
+        */
+
+        abilitySkills = new List<string>  {
+                "Enclume",
+
+                "Seisme",
+                "Pouet"
             };
     }
 
@@ -179,7 +183,11 @@ public class GameManager : MonoBehaviour
         }
 
 
-
+        if (skill == "pouet")
+        {
+            StartGlobalCoolDown();
+            photonView.RPC("Pouet", PhotonTargets.AllBuffered);
+        }
     }
 
     // GOOD
@@ -325,13 +333,42 @@ public class GameManager : MonoBehaviour
         }
         var cam = player.GetComponentInChildren<Camera>();
         var cameraShakeScript = cam.GetComponent<CameraShake>();
-
+        playSound("Seisme");
         if (cameraShakeScript != null)
         {
             cameraShakeScript.StartShake(4);
         }
     }
 
+
+
+    [PunRPC]
+    public void Pouet()
+    {
+        Debug.Log("Pouet");
+        playSound("Pouet");
+    }
+
+
+    public void playSound(string soundName)
+    {
+        Debug.Log(soundName);
+
+        foreach (AudioClip sound in sounds)
+        {
+            if (sound.name == soundName)
+            {
+                audioSource.clip = sound;
+
+                audioSource.Play();
+                break;
+            }
+        }
+
+
+
+
+    }
 
 
 }
