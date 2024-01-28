@@ -38,6 +38,8 @@ public class Player : Photon.MonoBehaviour
 
     public bool slippery = false;
 
+    public bool slowed = false;
+
 
 
 
@@ -176,9 +178,17 @@ public class Player : Photon.MonoBehaviour
 
             photonView.RPC("Flip", PhotonTargets.AllBuffered, lookingDirection);
 
-            if (Mathf.Abs(rb.velocity.x) < maxSpeed)
+            if (Mathf.Abs(rb.velocity.x) < (slowed ? maxSpeed / 4 : maxSpeed))
             {
-                photonView.RPC("ChangeForce", PhotonTargets.AllBuffered, new Vector2(movement * speed, 0));
+                if (slowed)
+                {
+                    photonView.RPC("ChangeForce", PhotonTargets.AllBuffered, new Vector2(movement * speed / 4, 0));
+
+                }
+                else
+                {
+                    photonView.RPC("ChangeForce", PhotonTargets.AllBuffered, new Vector2(movement * speed, 0));
+                }
             }
 
             if (movement == 0)

@@ -2437,13 +2437,26 @@ MonoBehaviour:
   - {fileID: 21300000, guid: b6a35bbe6ec61462a85925b9f440f261, type: 3}
   - {fileID: 21300000, guid: 7cf2b1f45aa8045c4882f33b5dd048d1, type: 3}
   sounds:
+  - {fileID: 8300000, guid: 28c60ceb5f4b84d798bce86aaf93b8ad, type: 3}
   - {fileID: 8300000, guid: 6b9426743b0ee467ebbfee7b56bb2a5c, type: 3}
+  - {fileID: 8300000, guid: 1fc8d76aec4e94377b821e78103c1abe, type: 3}
+  - {fileID: 8300000, guid: 37ebebdec44f7466cbba2307085a4254, type: 3}
+  - {fileID: 8300000, guid: c7d5dbb543f0e4bcc970b35cf8a60472, type: 3}
+  - {fileID: 8300000, guid: 0a9a2134d09534aa5a230c9e9b56202b, type: 3}
+  - {fileID: 8300000, guid: 5658ea181f9834af9b0497f84155bfb6, type: 3}
   - {fileID: 8300000, guid: 62c990fd807184dbda1022bacc912eea, type: 3}
-  - {fileID: 8300000, guid: 9f0892384f77c4b7191e0336b75895a2, type: 3}
+  - {fileID: 8300000, guid: 1bbb934a3e2734d779c10a9f26e2c5e6, type: 3}
   - {fileID: 8300000, guid: 34437c312e7364037ba456994343fad2, type: 3}
-  - {fileID: 8300000, guid: af37836394b3443f69d8e625d2fc95bd, type: 3}
+  - {fileID: 8300000, guid: 363dc956d1c614b3786e5181eeec3a04, type: 3}
   - {fileID: 8300000, guid: d65624e8d55f049708856eb7e1b4b10b, type: 3}
   - {fileID: 8300000, guid: 7435dbf16438b457798dabc0c735bdcd, type: 3}
+  - {fileID: 8300000, guid: 9f0892384f77c4b7191e0336b75895a2, type: 3}
+  - {fileID: 8300000, guid: f5fad30cf3bd04997aaba3c3bec08996, type: 3}
+  - {fileID: 8300000, guid: 3382008ccb93b490ca9a195e4cbf71a4, type: 3}
+  - {fileID: 8300000, guid: 2720ad5b4f07a4ea081018a312b4726b, type: 3}
+  - {fileID: 8300000, guid: 3d42db22d67f34a4ba739eaf498f844e, type: 3}
+  - {fileID: 8300000, guid: c9e4c2b2692af4d0d88943d0d18b0d25, type: 3}
+  - {fileID: 8300000, guid: 94875288dc107414d8993e07f5eaa583, type: 3}
   photonView: {fileID: 2117330198}
   RunnerPrefab: {fileID: 1211912445496647530, guid: f9051e05a211a43c791601c7b416b151, type: 3}
   ShooterCanvas: {fileID: 3549750854846942423}

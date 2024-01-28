@@ -29,7 +29,7 @@ public class SceneController : MonoBehaviour
 
     void Awake()
     {
-        if(Instance == null) Instance = this;
+        if (Instance == null) Instance = this;
         sceneContainer = GameObject.FindWithTag("SceneContainer");
 
         levelStartData = levelStart.GetComponent<ObstacleData>();
@@ -53,21 +53,24 @@ public class SceneController : MonoBehaviour
         Vector2 currentBeginning = levelStartData.end.transform.position;
         int previousIndex = -1;
 
-        for (int i = 0; i < levelLength+levelsCleared*2; i++)
+        for (int i = 0; i < levelLength + levelsCleared * 2; i++)
         {
             int newObstacleIndex = Random.Range(0, obstacleGroupsList.Count); //pour chaque niveau fini, on augmente les chances d'avoir des niveaux difficiles
-            if(levelsCleared < 10){
-                if(obstacleGroupsList[newObstacleIndex].difficulty == 0 && levelsCleared >= 1) newObstacleIndex = Random.Range(0, obstacleGroupsList.Count);
-                if(obstacleGroupsList[newObstacleIndex].difficulty == 0 && levelsCleared >= 2) newObstacleIndex = Random.Range(0, obstacleGroupsList.Count);
-                if(obstacleGroupsList[newObstacleIndex].difficulty == 0 && levelsCleared >= 3) newObstacleIndex = Random.Range(0, obstacleGroupsList.Count);
-                if(obstacleGroupsList[newObstacleIndex].difficulty == 0 && levelsCleared >= 4) newObstacleIndex = Random.Range(0, obstacleGroupsList.Count);
-            }else if(newObstacleIndex < 4){
+            if (levelsCleared < 10)
+            {
+                if (obstacleGroupsList[newObstacleIndex].difficulty == 0 && levelsCleared >= 1) newObstacleIndex = Random.Range(0, obstacleGroupsList.Count);
+                if (obstacleGroupsList[newObstacleIndex].difficulty == 0 && levelsCleared >= 2) newObstacleIndex = Random.Range(0, obstacleGroupsList.Count);
+                if (obstacleGroupsList[newObstacleIndex].difficulty == 0 && levelsCleared >= 3) newObstacleIndex = Random.Range(0, obstacleGroupsList.Count);
+                if (obstacleGroupsList[newObstacleIndex].difficulty == 0 && levelsCleared >= 4) newObstacleIndex = Random.Range(0, obstacleGroupsList.Count);
+            }
+            else if (newObstacleIndex < 4)
+            {
                 newObstacleIndex = Random.Range(4, 7);
             }
 
-            if(newObstacleIndex == previousIndex) newObstacleIndex = Random.Range(0, obstacleGroupsList.Count);
+            if (newObstacleIndex == previousIndex) newObstacleIndex = Random.Range(0, obstacleGroupsList.Count);
             previousIndex = newObstacleIndex;
- 
+
             obstacleSpawnPosition = currentBeginning + obstacleGroupsList[newObstacleIndex].beginning.transform.position * new Vector2(-1, -1);
 
             PhotonNetwork.Instantiate(obstacleGroupsList[newObstacleIndex].name, obstacleSpawnPosition, Quaternion.identity, 0);
@@ -81,15 +84,25 @@ public class SceneController : MonoBehaviour
         PhotonNetwork.Instantiate(levelEnd.name, obstacleSpawnPosition, Quaternion.identity, 0);
     }
 
-    public void DestroyLevel(){
+    public void DestroyLevel()
+    {
+        photonView.RPC("DestroyLevelRCP", PhotonTargets.AllBuffered);
+
+    }
+
+    [PunRPC]
+    private void DestroyLevelRCP()
+    {
+        //destroy all gameobjects with tag obstacle
+        GameObject[] obstacles = GameObject.FindGameObjectsWithTag("Obstacle");
+        foreach (GameObject obstacle in obstacles)
+        {
+            Destroy(obstacle);
+        }
         var runner = PhotonNetwork.playerName.Split("/")[1];
         if (runner == "true")
         {
-             //destroy all gameobjects with tag obstacle
-            GameObject[] obstacles = GameObject.FindGameObjectsWithTag("Obstacle");
-            foreach(GameObject obstacle in obstacles){
-                Destroy(obstacle);
-            }
+
             GenerateLevel();
         }
     }

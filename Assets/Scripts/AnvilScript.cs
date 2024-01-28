@@ -64,7 +64,8 @@ public class Anvil : MonoBehaviour
 
                 if (layerHit == PlayerLayer)
                 {
-
+                    Player player = FindFirstObjectByType<Player>();
+                    player.stun();
                 }
 
                 if (anvil && !played)
@@ -91,7 +92,7 @@ public class Anvil : MonoBehaviour
         }
 
 
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0) && isDragging)
         {
             var collider = gameObject.GetComponent<BoxCollider2D>();
             collider.isTrigger = false;

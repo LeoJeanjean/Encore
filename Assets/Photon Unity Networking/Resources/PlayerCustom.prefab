@@ -307,7 +307,7 @@ MonoBehaviour:
   ridiculeGaugeScript: {fileID: 4639077275016853369}
   photonView: {fileID: 5342317313424956284}
   rb: {fileID: 7225697869438450178}
-  boom: {fileID: 0}
+  boom: {fileID: 8008893333906537430}
   levelsClearedText: {fileID: 6157776824826957992}
   anim: {fileID: 4759203439522751382}
   PlayerCamera: {fileID: 2189047397649486283}

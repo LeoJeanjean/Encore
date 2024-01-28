@@ -77,16 +77,18 @@ public class GameManager : MonoBehaviour
         */
 
         abilitySkills = new List<string>  {
+
                 "Enclume",
+                "Gravite",
                 "Acceleration",
-                "Rallentissement",
+                "Ralentissement",
                 "GameplayReverse",
                 "UpsideDown",
                 "ChaussuresGlissantes",
                 "Banane",
                 "Seisme",
                 "Pouet"
-            };
+        };
     }
 
 
@@ -138,43 +140,64 @@ public class GameManager : MonoBehaviour
 
     public void ManageSkill(string skill)
     {
+        if (skill == "enclume")
+        {
+            var mousePos = Input.mousePosition;
+            usingAbility = true;
+            playSound("enclumeVfx");
+            SpawnAnvil(mousePos);
+        }
+        if (skill == "banane")
+        {
+            var mousePos = Input.mousePosition;
+            usingAbility = true;
+            playSound("bananeVfx");
+            SpawnBanana(mousePos);
+        }
         if (skill == "gravite")
         {
+            playSound("graviteVfx");
             StartGlobalCoolDown();
             photonView.RPC("Gravite", PhotonTargets.AllBuffered);
         }
         if (skill == "acceleration")
         {
+            playSound("accelerationVfx");
             StartGlobalCoolDown();
             photonView.RPC("Acceleration", PhotonTargets.AllBuffered);
         }
 
         if (skill == "ralentissement")
         {
+            playSound("ralentissementVfx");
             StartGlobalCoolDown();
             photonView.RPC("Ralenti", PhotonTargets.AllBuffered);
         }
 
         if (skill == "gameplayreverse")
         {
+            playSound("inversedVfx");
             StartGlobalCoolDown();
             photonView.RPC("GameplayReverse", PhotonTargets.AllBuffered);
         }
 
         if (skill == "upsidedown")
         {
+            playSound("upsidedownVfx");
             StartGlobalCoolDown();
             photonView.RPC("UpsideDown", PhotonTargets.AllBuffered);
         }
 
         if (skill == "chaussuresglissantes")
         {
+            playSound("glissantVfx");
             StartGlobalCoolDown();
             photonView.RPC("ChaussuresGlissantes", PhotonTargets.AllBuffered);
         }
 
         if (skill == "seisme")
         {
+            playSound("seismeVfx");
             StartGlobalCoolDown();
             photonView.RPC("Seisme", PhotonTargets.AllBuffered);
         }
@@ -240,8 +263,9 @@ public class GameManager : MonoBehaviour
         {
             return;
         }
-        player.speed /= 4;
-        player.maxSpeed /= 4;
+        player.speed = player.speed / 10;
+        player.maxSpeed = player.maxSpeed / 10;
+
 
         StartCoroutine(ResetRalenti());
     }
@@ -249,8 +273,8 @@ public class GameManager : MonoBehaviour
     private IEnumerator ResetRalenti()
     {
         yield return new WaitForSeconds(4.0f);
-        player.speed *= 4;
-        player.maxSpeed *= 4;
+        player.speed *= 10;
+        player.maxSpeed *= 10;
     }
 
 
@@ -346,30 +370,6 @@ public class GameManager : MonoBehaviour
         playSound("Pouet");
     }
 
-    public void playSoundAll(string soundName)
-    {
-        photonView.RPC("playSoundRPC", PhotonTargets.AllBuffered, soundName);
-
-    }
-
-    [PunRPC]
-    private void playSoundRPC(string soundName)
-    {
-        Debug.Log(soundName);
-
-        foreach (AudioClip sound in sounds)
-        {
-            if (sound.name == soundName)
-            {
-                audioSource.clip = sound;
-
-                audioSource.Play();
-                break;
-            }
-        }
-
-    }
-
 
     public void playSound(string soundName)
     {
@@ -385,6 +385,11 @@ public class GameManager : MonoBehaviour
                 break;
             }
         }
+
+
+
+
     }
+
 
 }

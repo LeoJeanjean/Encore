@@ -96,21 +96,42 @@ public class RidiculeGaugeScript : MonoBehaviour
         {
             ridiculeJaugeAmount += 10 * hilarityMultiplier;
 
-            if (ridiculeJaugeAmount < 25)
+
+            switch (ridiculeJaugeAmount)
             {
-                gameManager.playSound("Rire1");
-            }
-            else if (ridiculeJaugeAmount < 50)
-            {
-                gameManager.playSound("Rire2");
-            }
-            else if (ridiculeJaugeAmount < 75)
-            {
-                gameManager.playSound("Rire3");
-            }
-            else if (ridiculeJaugeAmount < 100)
-            {
-                gameManager.playSound("Rire4");
+                case < 10:
+                    gameManager.playSound("Nul4");
+                    break;
+                case float n when (n >= 10 && n < 20):
+                    gameManager.playSound("Nul3");
+                    break;
+                case float n when (n >= 20 && n < 30):
+                    gameManager.playSound("Nul3");
+                    break;
+                case float n when (n >= 30 && n < 40):
+                    gameManager.playSound("Rire2");
+                    break;
+                case float n when (n >= 40 && n < 50):
+                    gameManager.playSound("Rire1");
+                    break;
+                case float n when (n >= 50 && n < 60):
+                    gameManager.playSound("Rire1");
+                    break;
+                case float n when (n >= 60 && n < 70):
+                    gameManager.playSound("Rire2");
+                    break;
+                case float n when (n >= 70 && n < 80):
+                    gameManager.playSound("Rire2");
+                    break;
+                case float n when (n >= 80 && n < 90):
+                    gameManager.playSound("Rire3");
+                    break;
+                case float n when (n >= 90 && n < 100):
+                    gameManager.playSound("Rire3");
+                    break;
+                default:
+                    gameManager.playSound("Rire4");
+                    break;
             }
 
             hilarityMultiplier += 0.5f;

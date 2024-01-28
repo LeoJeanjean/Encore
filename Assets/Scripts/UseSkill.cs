@@ -20,16 +20,12 @@ public class UseSkill : MonoBehaviour
 
         int randomIndex = Random.Range(0, gameManager.abilitySkills.Count);
         skill = gameManager.abilitySkills[randomIndex];
-
-        foreach (string sprite in gameManager.abilitySkills)
-        {
-            Debug.Log(sprite);
-        }
         abilityImage.fillAmount = 1;
         buton.onClick.AddListener(click);
 
         foreach (Sprite sprite in gameManager.sprites)
         {
+            Debug.Log(sprite.name);
             if (sprite.name.ToLower() == skill.ToLower())
             {
                 var img = buton.GetComponent<Image>();
@@ -37,7 +33,7 @@ public class UseSkill : MonoBehaviour
                 break;
             }
 
-            if (skill.ToLower() == "enclume" && sprite.name == "Encart_Pouvoir_Enclume")
+            if (skill.ToLower() == "enclume" && sprite.name.ToLower() == "enclumepouvoir")
             {
                 var img = buton.GetComponent<Image>();
                 img.sprite = sprite;
@@ -80,30 +76,11 @@ public class UseSkill : MonoBehaviour
             isCoolDown = true;
 
 
-            if (skill.ToLower() == "enclume")
-            {
-                var mousePos = Input.mousePosition;
-                gameManager.usingAbility = true;
-                gameManager.SpawnAnvil(mousePos);
-                ResetSkill();
+            gameManager.StartGlobalCoolDown();
+            gameManager.ManageSkill(skill.ToLower());
+            ResetSkill();
 
-            }
 
-            if (skill.ToLower() == "banane")
-            {
-                var mousePos = Input.mousePosition;
-                gameManager.usingAbility = true;
-                gameManager.SpawnBanana(mousePos);
-                ResetSkill();
-
-            }
-            else
-            {
-                gameManager.StartGlobalCoolDown();
-                gameManager.ManageSkill(skill.ToLower());
-                ResetSkill();
-
-            }
 
         }
     }
