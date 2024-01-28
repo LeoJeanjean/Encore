@@ -10,6 +10,8 @@ public class RidiculeGaugeScript : MonoBehaviour
     //public TextMeshProUGUI ridiculeJaugeText;
     public TextMeshProUGUI hilarityMultiplierText;
 
+    public GameManager gameManager;
+
     private Image crowdUIImage;
     public List<Sprite> crowdLevels;
 
@@ -26,26 +28,32 @@ public class RidiculeGaugeScript : MonoBehaviour
         hilarityResetTimer = 0;
 
         crowdUIImage = GameObject.FindWithTag("Crowd").GetComponent<Image>();
+
+        gameManager = FindFirstObjectByType<GameManager>();
     }
 
-    void Update(){
-        if(!isDead){
-            if(hilarityResetTimer > 0) hilarityResetTimer -= Time.deltaTime;
-            else if(hilarityMultiplier > 1) { 
-                hilarityMultiplier -= 0.5f; 
+    void Update()
+    {
+        if (!isDead)
+        {
+            if (hilarityResetTimer > 0) hilarityResetTimer -= Time.deltaTime;
+            else if (hilarityMultiplier > 1)
+            {
+                hilarityMultiplier -= 0.5f;
                 hilarityResetTimer = hilarityResetTimerMax;
-            }else hilarityResetTimer = 0;
+            }
+            else hilarityResetTimer = 0;
 
-            if(ridiculeJaugeAmount > 0) ridiculeJaugeAmount -= Time.deltaTime;
+            if (ridiculeJaugeAmount > 0) ridiculeJaugeAmount -= Time.deltaTime;
 
-            if(invincibility > 0) invincibility -= Time.deltaTime;
+            if (invincibility > 0) invincibility -= Time.deltaTime;
 
             //ridiculeJaugeText.SetText("Ridicule: "+Mathf.FloorToInt(ridiculeJaugeAmount));
-            hilarityMultiplierText.SetText("x"+hilarityMultiplier);
+            hilarityMultiplierText.SetText("x" + hilarityMultiplier);
 
             switch (ridiculeJaugeAmount)
             {
-                case <10:
+                case < 10:
                     crowdUIImage.sprite = crowdLevels[0];
                     break;
                 case float n when (n >= 10 && n < 20):
@@ -82,17 +90,38 @@ public class RidiculeGaugeScript : MonoBehaviour
         }
     }
 
-    public void TakeDamage(){
-        if(invincibility <= 0 && !isDead){
-            ridiculeJaugeAmount += 10*hilarityMultiplier;
+    public void TakeDamage()
+    {
+        if (invincibility <= 0 && !isDead)
+        {
+            ridiculeJaugeAmount += 10 * hilarityMultiplier;
+
+            if (ridiculeJaugeAmount < 25)
+            {
+                gameManager.playSound("Rire1");
+            }
+            else if (ridiculeJaugeAmount < 50)
+            {
+                gameManager.playSound("Rire2");
+            }
+            else if (ridiculeJaugeAmount < 75)
+            {
+                gameManager.playSound("Rire3");
+            }
+            else if (ridiculeJaugeAmount < 100)
+            {
+                gameManager.playSound("Rire4");
+            }
+
             hilarityMultiplier += 0.5f;
             hilarityResetTimer = hilarityResetTimerMax;
-            if(ridiculeJaugeAmount >= 100) RidiculeDeath();
+            if (ridiculeJaugeAmount >= 100) RidiculeDeath();
             invincibility = 1f;
         }
     }
 
-    void RidiculeDeath(){
+    void RidiculeDeath()
+    {
         Debug.Log("DEAD!");
         isDead = true;
         GameObject.FindWithTag("Player").GetComponent<Player>().Respawn(0);

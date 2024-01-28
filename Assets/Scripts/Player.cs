@@ -10,6 +10,7 @@ public class Player : Photon.MonoBehaviour
     public PhotonView photonView;
     public Rigidbody2D rb;
 
+    public GameObject boom;
     public TextMeshProUGUI levelsClearedText;
 
     public Animator anim;
@@ -44,6 +45,8 @@ public class Player : Photon.MonoBehaviour
     private bool _jump = false;
     private bool _jumpedTwice = false;
 
+
+    public bool stunned = false;
 
     void Start()
     {
@@ -90,6 +93,7 @@ public class Player : Photon.MonoBehaviour
 
     private void Update()
     {
+        if (stunned) { return; }
         if (photonView.isMine)
         {
             _isGrounded = Physics2D.OverlapCircle(groundCheck.position, 0.1f, groundLayer);
@@ -106,7 +110,7 @@ public class Player : Photon.MonoBehaviour
                 AerialInput();
             }
 
-            levelsClearedText.SetText("lvl."+SceneController.Instance.levelsCleared);
+            levelsClearedText.SetText("lvl." + SceneController.Instance.levelsCleared);
         }
     }
 
@@ -138,6 +142,7 @@ public class Player : Photon.MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (stunned) { return; }
         if (photonView.isMine)
         {
             movement = reverse ? -Input.GetAxis("Horizontal") : Input.GetAxis("Horizontal");
@@ -186,14 +191,18 @@ public class Player : Photon.MonoBehaviour
                 photonView.RPC("Anim", PhotonTargets.AllBuffered, "Running", false);
             }
 
-            if(transform.position.y < -70f) Respawn(-1);
+            if (transform.position.y < -70f) Respawn(-1);
         }
     }
 
-    private void PerformJump() {
-        if (isGrounded) {
+    private void PerformJump()
+    {
+        if (isGrounded)
+        {
             changeVelocity(new Vector2(rb.velocity.x, jumpSpeed));
-        } else if (hasDoubleJump) {
+        }
+        else if (hasDoubleJump)
+        {
             changeVelocity(new Vector2(rb.velocity.x, jumpSpeed));
             hasDoubleJump = false;
         }
@@ -259,11 +268,35 @@ public class Player : Photon.MonoBehaviour
         }
     }
 
+
+    public void stun()
+    {
+        boom.SetActive(true);
+        stunned = true;
+        Invoke(nameof(stopBoom), 0.5f);
+        Invoke(nameof(stopStun), 2f);
+
+    }
+
+    private void stopBoom()
+    {
+        boom.SetActive(false);
+
+    }
+
+
+    private void stopStun()
+    {
+        stunned = false;
+
+    }
+
     public void Respawn(int levelCleared)
     {
         transform.position = new Vector2(0, 0);
-        if(levelCleared > -1){
-            if(levelCleared == 1) SceneController.Instance.levelsCleared += levelCleared;
+        if (levelCleared > -1)
+        {
+            if (levelCleared == 1) SceneController.Instance.levelsCleared += levelCleared;
             else SceneController.Instance.levelsCleared = levelCleared;
             SceneController.Instance.DestroyLevel();
         }

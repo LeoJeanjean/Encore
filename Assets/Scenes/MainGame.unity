@@ -343,7 +343,6 @@ MonoBehaviour:
   photonView: {fileID: 280100487}
   levelStart: {fileID: 1794819757}
   levelEnd: {fileID: 3028387570849772451, guid: 59052fbec86e54a5c99ced8880567fe8, type: 3}
-  levelLength: 25
   obstacleGroupsList:
   - {fileID: 1400588791326768128, guid: 86ed4e60e294b492d9cd745a445f5fd3, type: 3}
   - {fileID: 6079002354603181175, guid: d22f7323d63cc45a688df090450f4cac, type: 3}
@@ -2441,6 +2440,10 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 6b9426743b0ee467ebbfee7b56bb2a5c, type: 3}
   - {fileID: 8300000, guid: 62c990fd807184dbda1022bacc912eea, type: 3}
   - {fileID: 8300000, guid: 9f0892384f77c4b7191e0336b75895a2, type: 3}
+  - {fileID: 8300000, guid: 34437c312e7364037ba456994343fad2, type: 3}
+  - {fileID: 8300000, guid: af37836394b3443f69d8e625d2fc95bd, type: 3}
+  - {fileID: 8300000, guid: d65624e8d55f049708856eb7e1b4b10b, type: 3}
+  - {fileID: 8300000, guid: 7435dbf16438b457798dabc0c735bdcd, type: 3}
   photonView: {fileID: 2117330198}
   RunnerPrefab: {fileID: 1211912445496647530, guid: f9051e05a211a43c791601c7b416b151, type: 3}
   ShooterCanvas: {fileID: 3549750854846942423}
@@ -2607,13 +2610,13 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: e4250604879154dce91ca270b20f9da0, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 0.25
+  m_Volume: 0.2
   m_Pitch: 1
   Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
-  Priority: 128
+  Priority: 150
   DopplerLevel: 1
   MinDistance: 1
   MaxDistance: 500

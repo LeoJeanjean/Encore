@@ -54,7 +54,30 @@ public class Anvil : MonoBehaviour
         }
         else
         {
-            if (Physics2D.Raycast(transform.position, transform.TransformDirection(Vector2.down), 2f, GroundLayer))
+            RaycastHit2D[] hits = Physics2D.RaycastAll(transform.position, transform.TransformDirection(Vector2.down), 2f, GroundLayer | PlayerLayer);
+
+            foreach (RaycastHit2D hit in hits)
+            {
+
+
+                int layerHit = hit.collider.gameObject.layer;
+
+                if (layerHit == PlayerLayer)
+                {
+
+                }
+
+                if (anvil && !played)
+                {
+                    photonView.RPC("Hit", PhotonTargets.AllBuffered);
+                    played = true;
+                }
+
+                Debug.DrawRay(transform.position, transform.TransformDirection(Vector2.down) * 5f, Color.yellow);
+                photonView.RPC("Destroy", PhotonTargets.AllBuffered);
+            }
+
+            if (Physics2D.Raycast(transform.position, transform.TransformDirection(Vector2.down), 2f, PlayerLayer))
             {
                 if (anvil && !played)
                 {

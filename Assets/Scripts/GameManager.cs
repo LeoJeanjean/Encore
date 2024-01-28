@@ -346,6 +346,30 @@ public class GameManager : MonoBehaviour
         playSound("Pouet");
     }
 
+    public void playSoundAll(string soundName)
+    {
+        photonView.RPC("playSoundRPC", PhotonTargets.AllBuffered, soundName);
+
+    }
+
+    [PunRPC]
+    private void playSoundRPC(string soundName)
+    {
+        Debug.Log(soundName);
+
+        foreach (AudioClip sound in sounds)
+        {
+            if (sound.name == soundName)
+            {
+                audioSource.clip = sound;
+
+                audioSource.Play();
+                break;
+            }
+        }
+
+    }
+
 
     public void playSound(string soundName)
     {
@@ -361,11 +385,6 @@ public class GameManager : MonoBehaviour
                 break;
             }
         }
-
-
-
-
     }
-
 
 }

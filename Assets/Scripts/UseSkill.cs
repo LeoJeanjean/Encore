@@ -37,7 +37,7 @@ public class UseSkill : MonoBehaviour
                 break;
             }
 
-            if (skill == "enclume" && sprite.name == "Encart_Pouvoir_Enclume")
+            if (skill.ToLower() == "enclume" && sprite.name == "Encart_Pouvoir_Enclume")
             {
                 var img = buton.GetComponent<Image>();
                 img.sprite = sprite;
