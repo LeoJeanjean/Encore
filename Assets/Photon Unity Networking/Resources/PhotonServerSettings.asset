@@ -76,4 +76,5 @@ MonoBehaviour:
   - Pouete
   - Pouet
   - Hit
+  - playSoundRPC
   DisableAutoOpenWizard: 1
