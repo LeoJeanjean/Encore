@@ -11,6 +11,8 @@ public class Anvil : MonoBehaviour
     public LayerMask PlayerLayer;
 
     private bool isDragging = false;
+
+    public float timer = 5f;
     [SerializeField] private Rigidbody2D rb;
 
     private GameManager gameManager;
@@ -33,6 +35,10 @@ public class Anvil : MonoBehaviour
 
         if (isDragging)
         {
+
+            var collider = gameObject.GetComponent<BoxCollider2D>();
+            collider.isTrigger = true;
+
             var cam = Camera.allCameras[0];
 
             if (cam)
@@ -56,6 +62,9 @@ public class Anvil : MonoBehaviour
 
         if (Input.GetMouseButtonDown(0))
         {
+            var collider = gameObject.GetComponent<BoxCollider2D>();
+            collider.isTrigger = false;
+
             gameManager.usingAbility = false;
             gameManager.StartGlobalCoolDown();
             rb.gravityScale = 1;
@@ -69,7 +78,7 @@ public class Anvil : MonoBehaviour
     [PunRPC]
     public void Destroy()
     {
-        Destroy(gameObject, 5f);
+        Destroy(gameObject, timer);
     }
 
     [PunRPC]

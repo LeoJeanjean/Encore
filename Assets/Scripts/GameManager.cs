@@ -1,11 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Xml.Serialization;
+using DG.Tweening;
 using TMPro;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
+
+    public Sprite[] sprites;
 
     public PhotonView photonView;
 
@@ -18,6 +21,8 @@ public class GameManager : MonoBehaviour
 
     public GameObject anvilPrefab;
 
+    public GameObject bananaPrefab;
+
     public int target = 30;
 
     public float abilityCoolDownLenght = 1.5f;
@@ -28,13 +33,8 @@ public class GameManager : MonoBehaviour
 
     public bool usingAbility = false;
 
-    public List<string> abilitySkills = new List<string>
-            { "enclume", "gravite", "rideaux", "pouete", "blague", 
-            //"chaussuresGlissantes",
-            "accelerations", "ralentissement", "picInvisible", "inversionCommandes", "terrainFolie", 
-            //"sansDessusDessous" ,
-            "seisme", "chaussuresCollantes", "pointColle", "pointGlace", "banana"
-            };
+    public List<string> abilitySkills = new List<string> { };
+
 
 
     private Player player;
@@ -61,6 +61,32 @@ public class GameManager : MonoBehaviour
     }
 
 
+    private void Start()
+    {
+        /*  
+        "Rideaux",
+        "Pouet",
+        "PicsInvisibles",
+        "TerrainFolie", 
+        "Seisme",
+        "ChaussuresQuiCollent",
+        "PointColle",
+        "pointGlace",
+        "Blague", 
+        */
+
+        abilitySkills = new List<string>  {
+                "Enclume",
+                "Gravite",
+                "Acceleration",
+                "Rallentissement",
+                "GameplayReverse",
+                "UpsideDown",
+                 "ChaussuresGlissantes",
+                "Banane"
+            };
+    }
+
 
     public void StartGlobalCoolDown()
     {
@@ -75,8 +101,6 @@ public class GameManager : MonoBehaviour
         Application.targetFrameRate = target;
         GameCanvas.SetActive(true);
         var runner = PhotonNetwork.playerName.Split("/")[1];
-        Debug.Log(PhotonNetwork.playerName);
-        Debug.Log(runner);
         if (runner == "true")
         {
             SpawnPlayer();
@@ -100,10 +124,14 @@ public class GameManager : MonoBehaviour
         SceneCamera.SetActive(false);
     }
 
-
     public void SpawnAnvil(Vector3 mousePos)
     {
         PhotonNetwork.Instantiate(anvilPrefab.name, mousePos, Quaternion.identity, 0);
+    }
+
+    public void SpawnBanana(Vector3 mousePos)
+    {
+        PhotonNetwork.Instantiate(bananaPrefab.name, mousePos, Quaternion.identity, 0);
     }
 
     public void ManageSkill(string skill)
@@ -119,11 +147,37 @@ public class GameManager : MonoBehaviour
             photonView.RPC("Acceleration", PhotonTargets.AllBuffered);
         }
 
+        if (skill == "ralentissement")
+        {
+            StartGlobalCoolDown();
+            photonView.RPC("Ralenti", PhotonTargets.AllBuffered);
+        }
+
+        if (skill == "gameplayreverse")
+        {
+            StartGlobalCoolDown();
+            photonView.RPC("GameplayReverse", PhotonTargets.AllBuffered);
+        }
+
+        if (skill == "upsidedown")
+        {
+            StartGlobalCoolDown();
+            photonView.RPC("UpsideDown", PhotonTargets.AllBuffered);
+        }
+
+        if (skill == "chaussuresglissantes")
+        {
+            StartGlobalCoolDown();
+            photonView.RPC("ChaussuresGlissantes", PhotonTargets.AllBuffered);
+        }
+
     }
 
+    // GOOD
     [PunRPC]
     public void Gravite()
     {
+        Debug.Log("Graviti");
         if (!player)
         {
             return;
@@ -140,33 +194,40 @@ public class GameManager : MonoBehaviour
     }
 
 
-
+    // TO TEST
     [PunRPC]
-    public void Accelerate()
+    public void Acceleration()
     {
+        Debug.Log("Accelere");
         if (!player)
         {
             return;
         }
-        player.moveSpeed *= 4;
+        player.speed *= 4;
+        player.maxSpeed *= 4;
 
-        StartCoroutine(ResetAccelerate());
+        StartCoroutine(ResetAcceleration());
     }
 
-    private IEnumerator ResetAccelerate()
+    private IEnumerator ResetAcceleration()
     {
         yield return new WaitForSeconds(4.0f);
-        player.moveSpeed /= 4;
+        player.speed /= 4;
+        player.maxSpeed /= 4;
     }
 
+
+    // TO TEST
     [PunRPC]
     public void Ralenti()
     {
+        Debug.Log("Ralenti");
         if (!player)
         {
             return;
         }
-        player.moveSpeed /= 4;
+        player.speed /= 4;
+        player.maxSpeed /= 4;
 
         StartCoroutine(ResetRalenti());
     }
@@ -174,8 +235,63 @@ public class GameManager : MonoBehaviour
     private IEnumerator ResetRalenti()
     {
         yield return new WaitForSeconds(4.0f);
-        player.moveSpeed *= 4;
+        player.speed *= 4;
+        player.maxSpeed *= 4;
     }
+
+
+    // GOOD
+    [PunRPC]
+    public void GameplayReverse()
+    {
+        Debug.Log("Reverse Gameplay");
+        player.reverse = true;
+
+        StartCoroutine(ResetGameplayReverse());
+    }
+
+    private IEnumerator ResetGameplayReverse()
+    {
+        yield return new WaitForSeconds(8.0f);
+        player.reverse = false;
+    }
+
+    // GOOD
+    [PunRPC]
+    public void UpsideDown()
+    {
+        Debug.Log("UpsideDown");
+        var cam = player.GetComponentInChildren<Camera>();
+
+        cam.transform.Rotate(180f, 0f, 0f);
+        StartCoroutine(ResetUpsideDown());
+
+    }
+
+    private IEnumerator ResetUpsideDown()
+    {
+        var cam = player.GetComponentInChildren<Camera>();
+        yield return new WaitForSeconds(5.0f);
+
+        cam.transform.rotation = Quaternion.identity;
+    }
+
+
+
+    // TO TEST
+    [PunRPC]
+    public void ChaussuresGlissantes()
+    {
+        player.slippery = true;
+        StartCoroutine(ResetChaussuresGlissantes());
+    }
+
+    private IEnumerator ResetChaussuresGlissantes()
+    {
+        yield return new WaitForSeconds(2.0f);
+        player.slippery = false;
+    }
+
 
 
 }
