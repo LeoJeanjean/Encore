@@ -296,9 +296,12 @@ public class Player : Photon.MonoBehaviour
         transform.position = new Vector2(0, 0);
         if (levelCleared > -1)
         {
+            ridiculeGaugeScript.ridiculeJaugeAmount = 25;
             if (levelCleared == 1) SceneController.Instance.levelsCleared += levelCleared;
             else SceneController.Instance.levelsCleared = levelCleared;
             SceneController.Instance.DestroyLevel();
+        }else{
+            ridiculeGaugeScript.TakeDamage();
         }
     }
 }
