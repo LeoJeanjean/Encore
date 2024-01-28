@@ -68,7 +68,6 @@ public class GameManager : MonoBehaviour
         "Pouet",
         "PicsInvisibles",
         "TerrainFolie", 
-        "Seisme",
         "ChaussuresQuiCollent",
         "PointColle",
         "pointGlace",
@@ -82,8 +81,10 @@ public class GameManager : MonoBehaviour
                 "Rallentissement",
                 "GameplayReverse",
                 "UpsideDown",
-                 "ChaussuresGlissantes",
-                "Banane"
+                "ChaussuresGlissantes",
+                "Banane",
+                "Seisme",
+
             };
     }
 
@@ -171,6 +172,14 @@ public class GameManager : MonoBehaviour
             photonView.RPC("ChaussuresGlissantes", PhotonTargets.AllBuffered);
         }
 
+        if (skill == "seisme")
+        {
+            StartGlobalCoolDown();
+            photonView.RPC("Seisme", PhotonTargets.AllBuffered);
+        }
+
+
+
     }
 
     // GOOD
@@ -194,7 +203,7 @@ public class GameManager : MonoBehaviour
     }
 
 
-    // TO TEST
+    // GOOD
     [PunRPC]
     public void Acceleration()
     {
@@ -217,7 +226,7 @@ public class GameManager : MonoBehaviour
     }
 
 
-    // TO TEST
+    // GOOD
     [PunRPC]
     public void Ralenti()
     {
@@ -245,6 +254,10 @@ public class GameManager : MonoBehaviour
     public void GameplayReverse()
     {
         Debug.Log("Reverse Gameplay");
+        if (!player)
+        {
+            return;
+        }
         player.reverse = true;
 
         StartCoroutine(ResetGameplayReverse());
@@ -261,6 +274,10 @@ public class GameManager : MonoBehaviour
     public void UpsideDown()
     {
         Debug.Log("UpsideDown");
+        if (!player)
+        {
+            return;
+        }
         var cam = player.GetComponentInChildren<Camera>();
 
         cam.transform.Rotate(180f, 0f, 0f);
@@ -276,12 +293,14 @@ public class GameManager : MonoBehaviour
         cam.transform.rotation = Quaternion.identity;
     }
 
-
-
-    // TO TEST
+    // GOOD
     [PunRPC]
     public void ChaussuresGlissantes()
     {
+        if (!player)
+        {
+            return;
+        }
         player.slippery = true;
         StartCoroutine(ResetChaussuresGlissantes());
     }
@@ -290,6 +309,27 @@ public class GameManager : MonoBehaviour
     {
         yield return new WaitForSeconds(2.0f);
         player.slippery = false;
+    }
+
+
+
+
+    // GOOD
+    [PunRPC]
+    public void Seisme()
+    {
+        Debug.Log("Seisme");
+        if (!player)
+        {
+            return;
+        }
+        var cam = player.GetComponentInChildren<Camera>();
+        var cameraShakeScript = cam.GetComponent<CameraShake>();
+
+        if (cameraShakeScript != null)
+        {
+            cameraShakeScript.StartShake(4);
+        }
     }
 
 
