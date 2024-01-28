@@ -73,20 +73,17 @@ public class GameManager : MonoBehaviour
         "PointColle",
         "pointGlace",
         "Blague", 
-  "Gravite",
+        "Gravite",     
+        */
+
+        abilitySkills = new List<string>  {
+                "Enclume",
                 "Acceleration",
                 "Rallentissement",
                 "GameplayReverse",
                 "UpsideDown",
                 "ChaussuresGlissantes",
                 "Banane",
-
-       
-        */
-
-        abilitySkills = new List<string>  {
-                "Enclume",
-
                 "Seisme",
                 "Pouet"
             };
