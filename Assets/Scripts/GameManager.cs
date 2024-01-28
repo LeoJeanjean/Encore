@@ -35,16 +35,6 @@ public class GameManager : MonoBehaviour
 
     public List<string> abilitySkills = new List<string> { };
 
-    /*  "Rideaux",
-    "Pouet",
-    "PicsInvisibles",
-    "TerrainFolie", 
-    "Seisme",
-    "ChaussuresQuiCollent",
-    "PointColle",
-    "pointGlace",
-    "Blague", 
-    "ChaussuresGlissantes",*/
 
 
     private Player player;
@@ -73,6 +63,18 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
+        /*  
+        "Rideaux",
+        "Pouet",
+        "PicsInvisibles",
+        "TerrainFolie", 
+        "Seisme",
+        "ChaussuresQuiCollent",
+        "PointColle",
+        "pointGlace",
+        "Blague", 
+        */
+
         abilitySkills = new List<string>  {
                 "Enclume",
                 "Gravite",
@@ -80,6 +82,7 @@ public class GameManager : MonoBehaviour
                 "Rallentissement",
                 "GameplayReverse",
                 "UpsideDown",
+                 "ChaussuresGlissantes",
                 "Banane"
             };
     }
@@ -156,10 +159,16 @@ public class GameManager : MonoBehaviour
             photonView.RPC("GameplayReverse", PhotonTargets.AllBuffered);
         }
 
-        if (skill == "upsidedown".ToLower())
+        if (skill == "upsidedown")
         {
             StartGlobalCoolDown();
             photonView.RPC("UpsideDown", PhotonTargets.AllBuffered);
+        }
+
+        if (skill == "chaussuresglissantes")
+        {
+            StartGlobalCoolDown();
+            photonView.RPC("ChaussuresGlissantes", PhotonTargets.AllBuffered);
         }
 
     }
@@ -195,6 +204,7 @@ public class GameManager : MonoBehaviour
             return;
         }
         player.speed *= 4;
+        player.maxSpeed *= 4;
 
         StartCoroutine(ResetAcceleration());
     }
@@ -203,6 +213,7 @@ public class GameManager : MonoBehaviour
     {
         yield return new WaitForSeconds(4.0f);
         player.speed /= 4;
+        player.maxSpeed /= 4;
     }
 
 
@@ -216,6 +227,7 @@ public class GameManager : MonoBehaviour
             return;
         }
         player.speed /= 4;
+        player.maxSpeed /= 4;
 
         StartCoroutine(ResetRalenti());
     }
@@ -224,6 +236,7 @@ public class GameManager : MonoBehaviour
     {
         yield return new WaitForSeconds(4.0f);
         player.speed *= 4;
+        player.maxSpeed *= 4;
     }
 
 
@@ -265,7 +278,19 @@ public class GameManager : MonoBehaviour
 
 
 
+    // TO TEST
+    [PunRPC]
+    public void ChaussuresGlissantes()
+    {
+        player.slippery = true;
+        StartCoroutine(ResetChaussuresGlissantes());
+    }
 
+    private IEnumerator ResetChaussuresGlissantes()
+    {
+        yield return new WaitForSeconds(2.0f);
+        player.slippery = false;
+    }
 
 
 

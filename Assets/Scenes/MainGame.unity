@@ -283,7 +283,7 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
---- !u!1 &239630461
+--- !u!1 &280100486
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -291,9 +291,9 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 239630463}
-  - component: {fileID: 239630462}
-  - component: {fileID: 239630464}
+  - component: {fileID: 280100489}
+  - component: {fileID: 280100488}
+  - component: {fileID: 280100487}
   m_Layer: 0
   m_Name: SceneController
   m_TagString: Untagged
@@ -301,50 +301,13 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &239630462
+--- !u!114 &280100487
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 239630461}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ef64ebbb1b5a442b59a341237425405b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  photonView: {fileID: 239630464}
-  levelStart: {fileID: 1794819757}
-  levelEnd: {fileID: 3028387570849772451, guid: 59052fbec86e54a5c99ced8880567fe8, type: 3}
-  levelLength: 20
-  obstacleGroupsList:
-  - {fileID: 1400588791326768128, guid: 86ed4e60e294b492d9cd745a445f5fd3, type: 3}
-  - {fileID: 6079002354603181175, guid: d22f7323d63cc45a688df090450f4cac, type: 3}
-  - {fileID: 8292553517120432397, guid: 4062c59f0da8b4b2fb5f2f032792fdae, type: 3}
-  - {fileID: 4781676136255912291, guid: 338e63f8c6b144f74839905578aadc32, type: 3}
-  Character: {fileID: 1211912445496647530, guid: f9051e05a211a43c791601c7b416b151, type: 3}
---- !u!4 &239630463
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 239630461}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &239630464
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 239630461}
+  m_GameObject: {fileID: 280100486}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
@@ -365,6 +328,50 @@ MonoBehaviour:
   instantiationId: 2
   currentMasterID: -1
   isRuntimeInstantiated: 0
+--- !u!114 &280100488
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 280100486}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ef64ebbb1b5a442b59a341237425405b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  photonView: {fileID: 280100487}
+  levelStart: {fileID: 1794819757}
+  levelEnd: {fileID: 3028387570849772451, guid: 59052fbec86e54a5c99ced8880567fe8, type: 3}
+  levelLength: 25
+  obstacleGroupsList:
+  - {fileID: 1400588791326768128, guid: 86ed4e60e294b492d9cd745a445f5fd3, type: 3}
+  - {fileID: 6079002354603181175, guid: d22f7323d63cc45a688df090450f4cac, type: 3}
+  - {fileID: 8292553517120432397, guid: 4062c59f0da8b4b2fb5f2f032792fdae, type: 3}
+  - {fileID: 4781676136255912291, guid: 338e63f8c6b144f74839905578aadc32, type: 3}
+  - {fileID: 4669594176256900261, guid: ea96115eef5134534b34613e5cf29fbf, type: 3}
+  - {fileID: 2974469194368689078, guid: 3f7304fc538e1495d9abcb750370bd00, type: 3}
+  - {fileID: 1844645787851964932, guid: 725a43781d6a84e19ac80b847058802f, type: 3}
+  - {fileID: 3157356525072410748, guid: 07d70c07fb0b14b1fac46a9acd0e6f5a, type: 3}
+  - {fileID: 922109938776821306, guid: 4ead9fcd2c5a64753a2fae0417975ce7, type: 3}
+  - {fileID: 644219576099219699, guid: b13ed2ae13c374e258884d86b6aa989c, type: 3}
+  Character: {fileID: 1211912445496647530, guid: f9051e05a211a43c791601c7b416b151, type: 3}
+  levelsCleared: 0
+--- !u!4 &280100489
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 280100486}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 6.9197097, y: 8.062297, z: -0.026822379}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &503858585
 GameObject:
   m_ObjectHideFlags: 0
@@ -1569,7 +1576,7 @@ Transform:
   m_GameObject: {fileID: 1486592966}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -10}
+  m_LocalPosition: {x: 0, y: 5, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1618,7 +1625,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 5
+  orthographic size: 15
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -1809,12 +1816,16 @@ PrefabInstance:
     m_TransformParent: {fileID: 1648084150}
     m_Modifications:
     - target: {fileID: 2366809008934289402, guid: 4094dab871d0f48439d341f1a72677a6, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.503125
+      objectReference: {fileID: 0}
+    - target: {fileID: 2366809008934289402, guid: 4094dab871d0f48439d341f1a72677a6, type: 3}
       propertyPath: m_LocalPosition.x
       value: -3.8034732
       objectReference: {fileID: 0}
     - target: {fileID: 2366809008934289402, guid: 4094dab871d0f48439d341f1a72677a6, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -4.4278736
+      value: -6.21
       objectReference: {fileID: 0}
     - target: {fileID: 2366809008934289402, guid: 4094dab871d0f48439d341f1a72677a6, type: 3}
       propertyPath: m_LocalPosition.z
@@ -2107,7 +2118,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a26ad12766f8455fbccbe088881a79d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 10
+  moveSpeed: 15
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -2117,5 +2128,5 @@ SceneRoots:
   - {fileID: 637539368}
   - {fileID: 654951560}
   - {fileID: 8045024729961367211}
-  - {fileID: 239630463}
+  - {fileID: 280100489}
   - {fileID: 1648084150}

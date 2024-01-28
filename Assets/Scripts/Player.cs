@@ -17,23 +17,24 @@ public class Player : Photon.MonoBehaviour
     public SpriteRenderer sr;
 
     public float speed = 50f;
-    private float maxSpeed = 13f;
+    public float maxSpeed = 13f;
     private float movement = 0f;
-    private float smoothMovement = 0f;
-    private float smoothVelocity;
     private float lookingDirection = 1;
 
     private float jumpSpeed = 15f;
     private float dropSpeed = -15f;
     private bool isGrounded = true;
     private bool hasDoubleJump = true;
-    private bool isHoldingJump = false;
     public Transform groundCheck;
     public LayerMask groundLayer;
+
+    private bool facingLeft = false;
 
     public float moveSpeed;
 
     public bool reverse = false;
+
+    public bool slippery = false;
 
     void Start()
     {
@@ -62,7 +63,22 @@ public class Player : Photon.MonoBehaviour
             Debug.Log("touché !");
 
         }
+        else if (collision.gameObject.layer == LayerMask.GetMask("Banana"))
+        {
+            ridiculeGaugeScript.TakeDamage();
+            slippery = true;
+            StartCoroutine(ResetChaussuresGlissantes());
+        }
     }
+
+
+
+    private IEnumerator ResetChaussuresGlissantes()
+    {
+        yield return new WaitForSeconds(1.5f);
+        slippery = false;
+    }
+
 
 
     private void FixedUpdate()
@@ -70,8 +86,6 @@ public class Player : Photon.MonoBehaviour
         if (photonView.isMine)
         {
             movement = reverse ? -Input.GetAxis("Horizontal") : Input.GetAxis("Horizontal");
-
-            Debug.Log(reverse);
 
             isGrounded = Physics2D.OverlapCircle(groundCheck.position, 0.1f, groundLayer);
             if (isGrounded)
@@ -81,11 +95,11 @@ public class Player : Photon.MonoBehaviour
 
             if (jump)
             {
+                Debug.Log("Jumped ?");
                 if (isGrounded)
                 {
                     // First jump
                     photonView.RPC("changeVelocity", PhotonTargets.AllBuffered, new Vector2(rb.velocity.x, jumpSpeed));
-                    isGrounded = false;
                 }
                 else if (hasDoubleJump)
                 {
@@ -101,6 +115,8 @@ public class Player : Photon.MonoBehaviour
                 photonView.RPC("ChangeForce", PhotonTargets.AllBuffered, new Vector2(transform.position.x, dropSpeed));
             }
 
+            lookingDirection = rb.velocity.x;
+
             photonView.RPC("Flip", PhotonTargets.AllBuffered, lookingDirection);
 
             if (Mathf.Abs(rb.velocity.x) < maxSpeed)
@@ -110,7 +126,16 @@ public class Player : Photon.MonoBehaviour
 
             if (movement == 0)
             {
-                photonView.RPC("SlowDown", PhotonTargets.AllBuffered);
+                if (slippery)
+                {
+                    photonView.RPC("Slippery", PhotonTargets.AllBuffered);
+
+                }
+                else
+                {
+                    photonView.RPC("SlowDown", PhotonTargets.AllBuffered);
+
+                }
             }
 
             if (Mathf.Abs(movement) > 0.1f)
@@ -122,8 +147,10 @@ public class Player : Photon.MonoBehaviour
                 photonView.RPC("Anim", PhotonTargets.AllBuffered, "Running", false);
             }
 
-
         }
+
+
+
     }
 
 
@@ -157,13 +184,34 @@ public class Player : Photon.MonoBehaviour
 
 
     [PunRPC]
-    private void Flip(float lookingDirection)
+    private void Slippery()
     {
-        rb.transform.localScale = new Vector2(lookingDirection, 1);
+        if (Mathf.Abs(rb.velocity.x) < maxSpeed / 4)
+            rb.velocity = new Vector2(rb.velocity.x * 1.20f, rb.velocity.y);
+
     }
 
-    public void Respawn(int levelCleared){
-        transform.position = new Vector2(0,0);
+
+    [PunRPC]
+    private void Flip(float lookingDirection)
+    {
+        if (facingLeft && lookingDirection > 0)
+        {
+
+            sr.flipX = true;
+        }
+        else if (!facingLeft && lookingDirection < 0)
+        {
+            sr.flipX = true;
+
+        }
+
+        facingLeft = !facingLeft;
+    }
+
+    public void Respawn(int levelCleared)
+    {
+        transform.position = new Vector2(0, 0);
         SceneController.Instance.levelsCleared += levelCleared;
     }
 }

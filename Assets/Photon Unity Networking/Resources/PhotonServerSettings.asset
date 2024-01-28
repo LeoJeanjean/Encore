@@ -68,4 +68,6 @@ MonoBehaviour:
   - GameplayReverse
   - UpsideDown
   - Acceleration
+  - ChaussuresGlissantes
+  - Slippery
   DisableAutoOpenWizard: 1

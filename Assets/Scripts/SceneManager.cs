@@ -33,7 +33,11 @@ public class SceneController : MonoBehaviour
 
     void Start()
     {
-        GenerateLevel();
+        var runner = PhotonNetwork.playerName.Split("/")[1];
+        if (runner == "true")
+        {
+            GenerateLevel();
+        }
     }
 
 

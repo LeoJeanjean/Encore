@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 814073243403416991}
   - component: {fileID: 2544339005089056633}
   - component: {fileID: 2822688865827025145}
-  m_Layer: 6
+  m_Layer: 8
   m_Name: Banana
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -98,13 +98,13 @@ BoxCollider2D:
   m_GameObject: {fileID: 5267261963120689052}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: dfa2a74cc5b6f450eb38d21b86586935, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 128
   m_LayerOverridePriority: 0
   m_ForceSendLayers:
     serializedVersion: 2
@@ -180,7 +180,7 @@ MonoBehaviour:
   PlayerLayer:
     serializedVersion: 2
     m_Bits: 128
-  timer: 30
+  timer: 60
   rb: {fileID: 9051309980511788312}
 --- !u!114 &2544339005089056633
 MonoBehaviour:
