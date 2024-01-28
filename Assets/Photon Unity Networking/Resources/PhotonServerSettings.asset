@@ -70,4 +70,5 @@ MonoBehaviour:
   - Acceleration
   - ChaussuresGlissantes
   - Slippery
+  - ChangeForceImpulse
   DisableAutoOpenWizard: 1

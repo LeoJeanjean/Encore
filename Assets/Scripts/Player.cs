@@ -36,6 +36,14 @@ public class Player : Photon.MonoBehaviour
 
     public bool slippery = false;
 
+
+
+
+    public bool _isGrounded = false;
+    private bool _jump = false;
+    private bool _jumpedTwice = false;
+
+
     void Start()
     {
         rb.gravityScale = 2f;
@@ -79,6 +87,50 @@ public class Player : Photon.MonoBehaviour
         slippery = false;
     }
 
+    private void Update()
+    {
+        if (photonView.isMine)
+        {
+            _isGrounded = Physics2D.OverlapCircle(groundCheck.position, 0.1f, groundLayer);
+            if (_isGrounded)
+                hasDoubleJump = true;
+
+
+            if (_isGrounded)
+            {
+                GroundedInput();
+            }
+            else
+            {
+                AerialInput();
+            }
+        }
+    }
+
+    private void AerialInput()
+    {
+        if (Input.GetKeyDown(KeyCode.Space) && _jumpedTwice == false)
+        {
+            _jumpedTwice = true;
+            _jump = true;
+        }
+    }
+
+    private void GroundedInput()
+    {
+
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            _jump = true;
+            _jumpedTwice = false;
+        }
+        else if (!_jumpedTwice && Input.GetKeyDown(KeyCode.Space))
+        {
+            _jump = true;
+            _jumpedTwice = true;
+        }
+    }
+
 
 
     private void FixedUpdate()
@@ -87,35 +139,19 @@ public class Player : Photon.MonoBehaviour
         {
             movement = reverse ? -Input.GetAxis("Horizontal") : Input.GetAxis("Horizontal");
 
-            isGrounded = Physics2D.OverlapCircle(groundCheck.position, 0.1f, groundLayer);
-            if (isGrounded)
-                hasDoubleJump = true;
-
-            var jump = Input.GetKeyDown(KeyCode.Space);
-
-            if (jump)
+            if (_jump)
             {
-                Debug.Log("Jumped ?");
-                if (isGrounded)
-                {
-                    // First jump
-                    photonView.RPC("changeVelocity", PhotonTargets.AllBuffered, new Vector2(rb.velocity.x, jumpSpeed));
-                }
-                else if (hasDoubleJump)
-                {
-                    // Double jump
-                    photonView.RPC("changeVelocity", PhotonTargets.AllBuffered, new Vector2(rb.velocity.x, jumpSpeed));
-                    hasDoubleJump = false;
-                }
+                var force = _jumpedTwice ? jumpSpeed * 1.3f : jumpSpeed;
+                _jump = false;
+
+
+                photonView.RPC("changeVelocity", PhotonTargets.AllBuffered, new Vector2(rb.velocity.x, 0));
+
+                photonView.RPC("ChangeForceImpulse", PhotonTargets.AllBuffered, new Vector2(0, force));
+
             }
 
-            var jumpDropped = Input.GetKeyUp(KeyCode.Space);
-            if (jumpDropped)
-            {
-                photonView.RPC("ChangeForce", PhotonTargets.AllBuffered, new Vector2(transform.position.x, dropSpeed));
-            }
-
-            lookingDirection = rb.velocity.x;
+            lookingDirection = Input.GetAxis("Horizontal");
 
             photonView.RPC("Flip", PhotonTargets.AllBuffered, lookingDirection);
 
@@ -169,6 +205,14 @@ public class Player : Photon.MonoBehaviour
         rb.AddForce(force);
     }
 
+
+    [PunRPC]
+    private void ChangeForceImpulse(Vector2 force)
+    {
+
+        rb.AddForce(force, ForceMode2D.Impulse);
+    }
+
     [PunRPC]
     private void Anim(string input, bool value)
     {
@@ -193,20 +237,18 @@ public class Player : Photon.MonoBehaviour
 
 
     [PunRPC]
-    private void Flip(float lookingDirection)
+    private void Flip(float horizontalInput)
     {
-        if (facingLeft && lookingDirection > 0)
+        if (horizontalInput > 0.01f)
         {
-
-            sr.flipX = true;
+            facingLeft = false;
+            transform.localScale = Vector3.one;
         }
-        else if (!facingLeft && lookingDirection < 0)
+        else if (horizontalInput < -0.01f)
         {
-            sr.flipX = true;
-
+            facingLeft = true;
+            transform.localScale = new Vector3(-1, 1, 1);
         }
-
-        facingLeft = !facingLeft;
     }
 
     public void Respawn(int levelCleared)
