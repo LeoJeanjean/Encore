@@ -21,6 +21,8 @@ public class SceneController : MonoBehaviour
 
     private Vector2 obstacleSpawnPosition;
 
+    public int levelsCleared = 0;
+
     void Awake()
     {
 
