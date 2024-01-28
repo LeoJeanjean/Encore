@@ -74,6 +74,19 @@ public class Player : Photon.MonoBehaviour
             ridiculeGaugeScript.TakeDamage();
             Debug.Log("touché !");
 
+            // Calculate push back direction
+            Vector2 pushDirection = (Vector2)transform.position - collision.contacts[0].point;
+            pushDirection.Normalize();
+
+            // Set the magnitude of the push
+            float pushForce = 10f; // Adjust this value as needed
+
+            // Apply velocity directly to the Rigidbody
+            Rigidbody2D rb = GetComponent<Rigidbody2D>();
+            if (rb != null)
+            {
+                rb.velocity = pushDirection * pushForce;
+            }
         }
         else if (collision.gameObject.layer == LayerMask.GetMask("Banana"))
         {
@@ -259,12 +272,12 @@ public class Player : Photon.MonoBehaviour
         if (horizontalInput > 0.01f)
         {
             facingLeft = false;
-            transform.localScale = Vector3.one;
+            transform.localScale = new Vector3(transform.localScale.x * -1, transform.localScale.y, transform.localScale.z);
         }
         else if (horizontalInput < -0.01f)
         {
             facingLeft = true;
-            transform.localScale = new Vector3(-1, 1, 1);
+            transform.localScale = new Vector3(transform.localScale.x * 1, transform.localScale.y, transform.localScale.z);
         }
     }
 
