@@ -333,7 +333,7 @@ public class GameManager : MonoBehaviour
         }
         var cam = player.GetComponentInChildren<Camera>();
         var cameraShakeScript = cam.GetComponent<CameraShake>();
-
+        playSound("Seisme");
         if (cameraShakeScript != null)
         {
             cameraShakeScript.StartShake(4);
