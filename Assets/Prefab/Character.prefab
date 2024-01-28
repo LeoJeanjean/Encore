@@ -356,6 +356,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 32bb645c927d84cbc899ebf51983b57c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ridiculeGaugeScript: {fileID: 0}
   rb: {fileID: 7777710457639428991}
   groundCheck: {fileID: 302088697644219818}
   groundLayer:

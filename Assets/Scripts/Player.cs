@@ -6,6 +6,7 @@ using UnityEngine.InputSystem;
 
 public class Player : Photon.MonoBehaviour
 {
+    public RidiculeGaugeScript ridiculeGaugeScript;
 
     public PhotonView photonView;
     public Rigidbody2D rb;
@@ -57,6 +58,7 @@ public class Player : Photon.MonoBehaviour
     {
         if (collision.gameObject.tag == "Obstacle")
         {
+            ridiculeGaugeScript.TakeDamage();
             Debug.Log("touché !");
 
         }
@@ -79,21 +81,24 @@ public class Player : Photon.MonoBehaviour
 
             if (jump)
             {
-                if (isGrounded || hasDoubleJump)
+                if (isGrounded)
                 {
-                    photonView.RPC("changeVelocity", PhotonTargets.AllBuffered, new Vector2(transform.position.x, jumpSpeed));
-
-                    if (isGrounded)
-                        isGrounded = false;
-                    else
-                        hasDoubleJump = false;
+                    // First jump
+                    photonView.RPC("changeVelocity", PhotonTargets.AllBuffered, new Vector2(rb.velocity.x, jumpSpeed));
+                    isGrounded = false;
+                }
+                else if (hasDoubleJump)
+                {
+                    // Double jump
+                    photonView.RPC("changeVelocity", PhotonTargets.AllBuffered, new Vector2(rb.velocity.x, jumpSpeed));
+                    hasDoubleJump = false;
                 }
             }
+
             var jumpDropped = Input.GetKeyUp(KeyCode.Space);
             if (jumpDropped)
             {
                 photonView.RPC("ChangeForce", PhotonTargets.AllBuffered, new Vector2(transform.position.x, dropSpeed));
-
             }
 
             photonView.RPC("Flip", PhotonTargets.AllBuffered, lookingDirection);
@@ -157,5 +162,8 @@ public class Player : Photon.MonoBehaviour
         rb.transform.localScale = new Vector2(lookingDirection, 1);
     }
 
-
+    public void Respawn(int levelCleared){
+        transform.position = new Vector2(0,0);
+        SceneController.Instance.levelsCleared += levelCleared;
+    }
 }

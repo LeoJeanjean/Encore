@@ -3751,7 +3751,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   beginning: {fileID: 7625714362616654818}
   end: {fileID: 519171861901966843}
-  difficulty: 0
+  difficulty: 1
 --- !u!61 &4356920525136213063
 BoxCollider2D:
   m_ObjectHideFlags: 0
