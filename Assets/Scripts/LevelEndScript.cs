@@ -13,11 +13,17 @@ public class LevelEndScript : MonoBehaviour
 
     void OnTriggerEnter2D(UnityEngine.Collider2D collision)
     {
-        GameObject character =  collision.gameObject;
-        if(character.GetComponent<RidiculeGaugeScript>().ridiculeJaugeAmount > 30){
-            character.GetComponent<Player>().Respawn(1);
+        if(collision.gameObject.tag == "Player"){
+            GameObject character =  collision.gameObject;
+            if(character.GetComponent<RidiculeGaugeScript>().ridiculeJaugeAmount > 30){
+                character.GetComponent<Player>().Respawn(1);
+                Debug.Log("prochain niveau.");
+            }else{
+                character.GetComponent<Player>().Respawn(10);
+                Debug.Log("pas assez marrant.");
+            }
         }else{
-            //switch player roles here
+            Debug.Log("not a player");
         }
     }
 }
