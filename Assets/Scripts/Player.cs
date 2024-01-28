@@ -22,8 +22,8 @@ public class Player : Photon.MonoBehaviour
     private float movement = 0f;
     private float lookingDirection = 1;
 
-    private float jumpSpeed = 15f;
-    private float dropSpeed = -15f;
+    private float jumpSpeed = 10f;
+    private float dropSpeed = -20f;
     private bool isGrounded = true;
     private bool hasDoubleJump = true;
     public Transform groundCheck;

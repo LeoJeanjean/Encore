@@ -169,7 +169,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: -10}
-  m_LocalScale: {x: 1.5, y: 1.5, z: 1}
+  m_LocalScale: {x: 1.7, y: 1.7, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7506749179617037885}
@@ -310,8 +310,8 @@ MonoBehaviour:
   anim: {fileID: 4759203439522751382}
   PlayerCamera: {fileID: 2189047397649486283}
   sr: {fileID: 8442744408520031758}
-  speed: 50
-  maxSpeed: 13
+  speed: 30
+  maxSpeed: 10
   groundCheck: {fileID: 6656710304111695552}
   groundLayer:
     serializedVersion: 2
@@ -793,7 +793,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 1
-  m_BackGroundColor: {r: 0.90588236, g: 0.8235294, b: 0.6862745, a: 0}
+  m_BackGroundColor: {r: 0.78823537, g: 0.7294118, b: 0.61960787, a: 1}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -818,7 +818,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 10
+  orthographic size: 15
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
