@@ -620,7 +620,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &637204540
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -930,6 +930,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef64ebbb1b5a442b59a341237425405b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  photonView: {fileID: 0}
   levelStart: {fileID: 6994689995792520840, guid: 4094dab871d0f48439d341f1a72677a6, type: 3}
   levelEnd: {fileID: 3028387570849772451, guid: 59052fbec86e54a5c99ced8880567fe8, type: 3}
   levelLength: 20
@@ -938,6 +939,12 @@ MonoBehaviour:
   - {fileID: 6079002354603181175, guid: d22f7323d63cc45a688df090450f4cac, type: 3}
   - {fileID: 8292553517120432397, guid: 4062c59f0da8b4b2fb5f2f032792fdae, type: 3}
   - {fileID: 4781676136255912291, guid: 338e63f8c6b144f74839905578aadc32, type: 3}
+  - {fileID: 4669594176256900261, guid: ea96115eef5134534b34613e5cf29fbf, type: 3}
+  - {fileID: 2974469194368689078, guid: 3f7304fc538e1495d9abcb750370bd00, type: 3}
+  - {fileID: 1844645787851964932, guid: 725a43781d6a84e19ac80b847058802f, type: 3}
+  - {fileID: 3157356525072410748, guid: 07d70c07fb0b14b1fac46a9acd0e6f5a, type: 3}
+  - {fileID: 922109938776821306, guid: 4ead9fcd2c5a64753a2fae0417975ce7, type: 3}
+  - {fileID: 644219576099219699, guid: b13ed2ae13c374e258884d86b6aa989c, type: 3}
   Character: {fileID: 2736553620093331983}
 --- !u!4 &1700846993
 Transform:
