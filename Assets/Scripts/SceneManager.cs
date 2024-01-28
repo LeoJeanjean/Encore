@@ -28,6 +28,7 @@ public class SceneController : MonoBehaviour
 
     void Awake()
     {
+        if(Instance == null) Instance = this;
         sceneContainer = GameObject.FindWithTag("SceneContainer");
 
         levelStartData = levelStart.GetComponent<ObstacleData>();
