@@ -17,14 +17,17 @@ public class Shooter : MonoBehaviour
     {
         CheckInput();
     }
-
     private void CheckInput()
     {
-        var change = new Vector3(Input.GetAxis("Horizontal"), 0);
+        float horizontalInput = Input.GetAxis("Horizontal");
+        float verticalInput = Input.GetAxis("Vertical");
 
-        transform.position += change * moveSpeed * Time.deltaTime;
+        Vector3 moveDirection = new Vector3(horizontalInput, verticalInput);
 
-        //if(_player.transform.position.x )
+        moveDirection.Normalize();
+
+        transform.position += moveDirection * moveSpeed * Time.deltaTime;
+
     }
 
 

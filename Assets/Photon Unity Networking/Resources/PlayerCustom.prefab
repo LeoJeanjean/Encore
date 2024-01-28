@@ -84,12 +84,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -1021938737, guid: 7369ac495074d401c9c6db595b9eceb6, type: 3}
+  m_Sprite: {fileID: -1753863496, guid: 6454ff18d0c7543af8eb52b0b03ef62c, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1.03, y: 1.89}
+  m_Size: {x: 0.7, y: 1.88}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -110,7 +110,7 @@ CapsuleCollider2D:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 256
   m_LayerOverridePriority: 0
   m_ForceSendLayers:
     serializedVersion: 2
@@ -146,7 +146,7 @@ Rigidbody2D:
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: dfa2a74cc5b6f450eb38d21b86586935, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -175,11 +175,14 @@ MonoBehaviour:
   anim: {fileID: 4759203439522751382}
   PlayerCamera: {fileID: 2189047397649486283}
   sr: {fileID: 8442744408520031758}
+  speed: 50
   groundCheck: {fileID: 6656710304111695552}
   groundLayer:
     serializedVersion: 2
     m_Bits: 8
   moveSpeed: 5
+  reverse: 0
+  slippery: 0
 --- !u!114 &5342317313424956284
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -296,7 +299,7 @@ Animator:
   m_GameObject: {fileID: 1211912445496647530}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: adc7cea9b2a2e4d5a8e698df0e5742ca, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -321,8 +324,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ShowLayerWeightsInspector: 1
   ShowParameterInspector: 1
-  m_SynchronizeParameters: []
-  m_SynchronizeLayers: []
+  m_SynchronizeParameters:
+  - Type: 4
+    SynchronizeType: 0
+    Name: Running
+  m_SynchronizeLayers:
+  - SynchronizeType: 0
+    LayerIndex: 0
 --- !u!114 &4639077275016853369
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -1,7 +1,3 @@
-
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -16,16 +12,64 @@ public class UseSkill : MonoBehaviour
     public string skill;
 
 
-
     private void Start()
     {
         abilityImage.fillAmount = 1;
 
         buton.onClick.AddListener(click);
 
+        int randomIndex = Random.Range(0, gameManager.abilitySkills.Count);
+        skill = gameManager.abilitySkills[randomIndex];
+
+        foreach (string sprite in gameManager.abilitySkills)
+        {
+            Debug.Log(sprite);
+        }
+        abilityImage.fillAmount = 1;
+        buton.onClick.AddListener(click);
+
+        foreach (Sprite sprite in gameManager.sprites)
+        {
+            if (sprite.name.ToLower() == skill.ToLower())
+            {
+                var img = buton.GetComponent<Image>();
+                img.sprite = sprite;
+                break;
+            }
+
+            if (skill == "enclume" && sprite.name == "Encart_Pouvoir_Enclume")
+            {
+                var img = buton.GetComponent<Image>();
+                img.sprite = sprite;
+                break;
+            }
+        }
+    }
+
+    private void ResetSkill()
+    {
+        abilityImage.fillAmount = 1;
+
+        buton.onClick.AddListener(click);
+
+
 
         int randomIndex = Random.Range(0, gameManager.abilitySkills.Count);
-        // skill = gameManager.abilitySkills[randomIndex];
+        skill = gameManager.abilitySkills[randomIndex];
+
+        abilityImage.fillAmount = 1;
+        buton.onClick.AddListener(click);
+
+
+        foreach (Sprite sprite in gameManager.sprites)
+        {
+            if (sprite.name.ToLower() == skill.ToLower())
+            {
+                var img = buton.GetComponent<Image>();
+                img.sprite = sprite;
+                break;
+            }
+        }
     }
 
     private void click()
@@ -36,30 +80,31 @@ public class UseSkill : MonoBehaviour
             isCoolDown = true;
 
 
-            /*
-              { "enclume", "gravite", "rideaux", "pouete", "blague", "chaussuresGlissantes",
-                        "accelerations", "ralentissement", "picInvisible", "inversionCommandes", "terrainFolie", 
-                        //"sansDessusDessous" ,
-                        "seisme", "chaussuresCollantes", "pointColle", "pointGlace", "banana"
-                        };
-            */
-
-            if (skill == "enclume")
+            if (skill.ToLower() == "enclume")
             {
                 var mousePos = Input.mousePosition;
                 gameManager.usingAbility = true;
                 gameManager.SpawnAnvil(mousePos);
+                ResetSkill();
+
             }
-            else if (skill == "gravite")
+
+            if (skill.ToLower() == "banane")
+            {
+                var mousePos = Input.mousePosition;
+                gameManager.usingAbility = true;
+                gameManager.SpawnBanana(mousePos);
+                ResetSkill();
+
+            }
+            else
             {
                 gameManager.StartGlobalCoolDown();
-                gameManager.ManageSkill(skill);
+                gameManager.ManageSkill(skill.ToLower());
+                ResetSkill();
+
             }
-            else if (skill == "chaussuresGlissantes")
-            {
-                gameManager.StartGlobalCoolDown();
-                gameManager.ManageSkill(skill);
-            }
+
         }
     }
 

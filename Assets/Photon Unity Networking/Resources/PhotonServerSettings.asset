@@ -63,4 +63,11 @@ MonoBehaviour:
   - GenerateLevel
   - InstantiatePart
   - InstantiateEnd
+  - InversionCommandes
+  - sansDessusDessous
+  - GameplayReverse
+  - UpsideDown
+  - Acceleration
+  - ChaussuresGlissantes
+  - Slippery
   DisableAutoOpenWizard: 1
